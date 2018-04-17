@@ -14,18 +14,11 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>swagger-parser-repo</id>
-            <url>file://Volumes/Workspace/swagger-parser/modules/swagger-parser/target</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
-            <groupId>io.swagger</groupId>
+            <groupId>io.swagger.parser.v3</groupId>
             <artifactId>swagger-parser</artifactId>
-            <version>1.0.35-SNAPSHOT</version>
+            <version>2.0.0-rc3</version>
         </dependency>
 
         <dependency>
