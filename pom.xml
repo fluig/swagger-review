@@ -21,10 +21,11 @@
             <version>2.0.0-rc3</version>
         </dependency>
 
+
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-core</artifactId>
-            <version>1.5.19-SNAPSHOT</version>
+            <version>1.5.19</version>
         </dependency>
 
         <dependency>

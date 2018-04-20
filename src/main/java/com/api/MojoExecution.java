@@ -1,5 +1,10 @@
 package com.api;
 
+import com.api.rules.EnsureOperationIdRule;
+import com.api.rules.SwaggerRule;
+import com.api.rules.SwaggerRuleFailure;
+import io.swagger.models.Swagger;
+import io.swagger.parser.SwaggerParser;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -33,8 +38,6 @@ public class MojoExecution extends AbstractMojo {
             ).collect(Collectors.toList());
 
 
-            // Via reflection carrega uma lista de regras
-
             for (Path path : javaFiles) {
 
                 // para cada regra
@@ -44,7 +47,12 @@ public class MojoExecution extends AbstractMojo {
                 //
                 // serializa o result
                 this.getLog().warn(path.toString());
-                new SwaggerAnalyzer(path.toString());
+
+                SwaggerParser p = new SwaggerParser();
+                Swagger swagger = p.read(path.toString());
+
+                SwaggerRule rule = new EnsureOperationIdRule();
+                final List<SwaggerRuleFailure> execute = rule.execute(swagger);
             }
 
         } catch (IOException e) {
