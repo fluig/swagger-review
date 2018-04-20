@@ -32,7 +32,17 @@ public class MojoExecution extends AbstractMojo {
                     FileVisitOption.FOLLOW_LINKS
             ).collect(Collectors.toList());
 
+
+            // Via reflection carrega uma lista de regras
+
             for (Path path : javaFiles) {
+
+                // para cada regra
+                // result.add( regra.execute())
+
+
+                //
+                // serializa o result
                 this.getLog().warn(path.toString());
                 new SwaggerAnalyzer(path.toString());
             }
