@@ -1,5 +1,6 @@
 package com.api.rules;
 
+
 import io.swagger.models.Swagger;
 
 import java.util.ArrayList;
@@ -28,8 +29,8 @@ public final class EnsureHttpHttpsRule implements SwaggerRule {
     public List<SwaggerRuleFailure> execute(Swagger swagger) {
         ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
         ArrayList<String> list = new ArrayList<>();
-        list.add("http");
-        list.add("https");
+        list.add("HTTP");
+        list.add("HTTPS");
 
         if (!swagger.getSchemes().containsAll(list)) {
             SwaggerRuleFailure failure = new SwaggerRuleFailure(getName(),
