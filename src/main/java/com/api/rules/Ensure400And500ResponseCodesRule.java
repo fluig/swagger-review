@@ -16,7 +16,7 @@ import java.util.Map;
 public final class Ensure400And500ResponseCodesRule implements SwaggerRule {
 
     private static final String RULENAME = "RULE0005";
-    private static final String MESSAGE = "O path %s não mapea os códigos de retorno 400 ou 500.";
+    private static final String MESSAGE = "O path %s não mapeia os códigos de retorno 400 ou 500.";
 
     @Override
     public String getName() {
