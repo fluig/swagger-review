@@ -8,19 +8,22 @@ import java.util.List;
 
 public class EnsureNameSuffixRule implements SwaggerRule {
 
-    @Override
-    public String getName() {
-        return null;
-    }
+    private static final String RULENAME = "RULE0006";
+    private static final String MESSAGE = "A entidade de retorno %s não deve conter os sufixos: DTO, VO.";
 
     @Override
-    public String getDescription() {
-        return null;
+    public String getName() {
+        return RULENAME;
     }
 
     @Override
     public SwaggerRuleType getType() {
-        return null;
+        return SwaggerRuleType.ERROR;
+    }
+
+    @Override
+    public String getDescription() {
+        return "As entidades de retorno não podem conter os sufixos DTO ou VO.";
     }
 
     @Override
