@@ -32,17 +32,17 @@ public final class EnsureNameSuffixRule implements SwaggerRule {
     @Override
     public List<SwaggerRuleFailure> execute(Swagger swagger) {
 
-        ArrayList<String> entityNames = new ArrayList<>();
-        entityNames.add("DTO");
-        entityNames.add("VO");
+        ArrayList<String> entitySuffixes = new ArrayList<>();
+        entitySuffixes.add("DTO");
+        entitySuffixes.add("VO");
 
         ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
 
         for (Map.Entry<String, Model> modelEntry : swagger.getDefinitions().entrySet()) {
 
-            for (String entityName: entityNames) {
+            for (String suffix: entitySuffixes) {
 
-                if (modelEntry.getKey().endsWith(entityName)) {
+                if (modelEntry.getKey().endsWith(suffix)) {
                     failures.add(new SwaggerRuleFailure(
                             getName(),
                             String.format(MESSAGE, modelEntry.getKey()),
