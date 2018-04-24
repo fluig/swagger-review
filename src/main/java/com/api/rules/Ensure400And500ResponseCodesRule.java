@@ -6,7 +6,7 @@ import io.swagger.models.Swagger;
 
 import java.util.List;
 
-public final class Ensure400And500ResponsesRule implements SwaggerRule {
+public final class Ensure400And500ResponseCodesRule implements SwaggerRule {
 
     private static final String RULENAME = "RULE0005";
     private static final String MESSAGE = "O path {path} não mapea os códigos de retorno 400 ou 500.";
