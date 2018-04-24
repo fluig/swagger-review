@@ -1,4 +1,4 @@
-package com.api.rules;
+package com.api.factory;
 
 public class SwaggerRuleFailure {
     private String sourceRuleName;

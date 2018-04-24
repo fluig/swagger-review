@@ -1,0 +1,5062 @@
+{
+   "swagger":"2.0",
+   "info":{
+      "description":"Com a API Admin você pode gerir, grupos, papéis, empresas, usuários e login.",
+      "version":"v1",
+      "title":"Admin"
+   },
+   "basePath":"/admin/api",
+   "tags":[
+      {
+         "name":"FluigServers",
+         "description":"Allows management of Fluig Servers"
+      },
+      {
+         "name":"Groups",
+         "description":"Permiti o gerenciamento de grupos"
+      },
+      {
+         "name":"Roles",
+         "description":"Permiti o gerenciamento de papéis"
+      },
+      {
+         "name":"Tenants",
+         "description":"Permiti o gerenciamento de empresas"
+      },
+      {
+         "name":"Users",
+         "description":"Permiti o gerenciamento de usuários"
+      },
+      {
+         "name":"Validations",
+         "description":"Permitir validações"
+      }
+   ],
+   "schemes":[
+      "https",
+      "http"
+   ],
+   "paths":{
+      "/v1/fluigservers":{
+         "get":{
+            "tags":[
+               "FluigServers"
+            ],
+            "summary":"Get fluig servers",
+            "description":"",
+            "operationId":"getAllFluigServers",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string",
+                     "enum":[
+                        "id",
+                        "name"
+                     ]
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/FluigServerCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Failed to get fluig servers, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"Access denied",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Internal error, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "FluigServers"
+            ],
+            "summary":"Creates a new server",
+            "description":"",
+            "operationId":"create",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "in":"body",
+                  "name":"The server to be added",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/FluigServerCreate"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Success",
+                  "schema":{
+                     "$ref":"#/definitions/FluigServer"
+                  }
+               },
+               "400":{
+                  "description":"Failed to create server, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"Access denied",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Internal error, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "put":{
+            "tags":[
+               "FluigServers"
+            ],
+            "summary":"Updates a created server",
+            "description":"",
+            "operationId":"update",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "in":"body",
+                  "name":"The server to be updated",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/FluigServer"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success",
+                  "schema":{
+                     "$ref":"#/definitions/FluigServer"
+                  }
+               },
+               "400":{
+                  "description":"Failed to create server, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"Access denied",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Internal error, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/fluigservers/{id}":{
+         "get":{
+            "tags":[
+               "FluigServers"
+            ],
+            "summary":"Get a fluig server",
+            "description":"",
+            "operationId":"get",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"fluig server id",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/FluigServer"
+                  }
+               },
+               "401":{
+                  "description":"Access denied",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"fluig server not found",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Internal error, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "delete":{
+            "tags":[
+               "FluigServers"
+            ],
+            "summary":"Delete fluig server",
+            "description":"",
+            "operationId":"delete",
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"fluig server id",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               }
+            ],
+            "responses":{
+               "204":{
+                  "description":"fluig server deleted successfully"
+               },
+               "400":{
+                  "description":"Failed to get fluig server, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"Access denied",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"fluig server not found",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Internal error, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/fluigservers/{id}/test":{
+         "get":{
+            "tags":[
+               "FluigServers"
+            ],
+            "summary":"Test connection to a fluig server",
+            "description":"",
+            "operationId":"test",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"fluig server id",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok"
+               },
+               "400":{
+                  "description":"Failed to get fluig server, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"Access denied",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"fluig server not found",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Internal error, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/groups":{
+         "get":{
+            "tags":[
+               "Groups"
+            ],
+            "summary":"Retorna uma lista de grupos",
+            "description":"",
+            "operationId":"findGroups",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"description",
+                  "in":"query",
+                  "description":"Descrição do grupo",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/GroupCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Retorna uma lista de grupos.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "Groups"
+            ],
+            "summary":"Adicionar um novo grupo",
+            "description":"",
+            "operationId":"create",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "in":"body",
+                  "name":"Dados do grupo",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/GroupCreate"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/GroupFind"
+                  }
+               },
+               "400":{
+                  "description":"Failed to create group, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/groups/{code}":{
+         "get":{
+            "tags":[
+               "Groups"
+            ],
+            "summary":"Retorna uma lista de usuários associado ao grupo",
+            "description":"",
+            "operationId":"findGroupByCode",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do grupo",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/GroupFind"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar filtrar o grupo pelo código",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Empresa não encontrada",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "put":{
+            "tags":[
+               "Groups"
+            ],
+            "summary":"Atualizar informações do grupo",
+            "description":"",
+            "operationId":"update",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do grupo",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "in":"body",
+                  "name":"body",
+                  "description":"Dados do grupo",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/GroupUpdate"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/GroupFind"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar atualizar o grupo",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "delete":{
+            "tags":[
+               "Groups"
+            ],
+            "summary":"Deletar grupo com código informado",
+            "description":"",
+            "operationId":"delete",
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do grupo",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "204":{
+                  "description":"Ok"
+               },
+               "400":{
+                  "description":"Deletar grupo com código informado.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Group not found",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/groups/{code}/groups":{
+         "get":{
+            "tags":[
+               "Groups"
+            ],
+            "summary":"Retorna uma lista de sub-grupos",
+            "description":"",
+            "operationId":"findChildGroupsByParentCode",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do grupo",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/GroupCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Retorna uma lista de sub-grupos.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Retorna uma lista de sub-grupos.notfound",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/groups/{code}/roles":{
+         "get":{
+            "tags":[
+               "Groups"
+            ],
+            "summary":"Retorna uma lista de papeis relacionados ao grupo",
+            "description":"",
+            "operationId":"findRolesOfGroup",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do grupo",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"description",
+                  "in":"query",
+                  "description":"Descrição do grupo",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/RoleCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Retorna uma lista de papeis relacionados ao grupo.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Grupo não encontrado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "Groups"
+            ],
+            "summary":"Relacionar papel com grupo",
+            "description":"",
+            "operationId":"createUserRole",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do grupo",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "in":"body",
+                  "name":"body",
+                  "description":"Dados do papel",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/AddRole"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserFind"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar relacionar papel com o grupo",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Grupo não encontrado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/groups/{code}/roles/{role}":{
+         "delete":{
+            "tags":[
+               "Groups"
+            ],
+            "summary":"Remover papel do grupo",
+            "description":"",
+            "operationId":"removeRoleFromGroup",
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do grupo",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"role",
+                  "in":"path",
+                  "description":"Código do papel",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "204":{
+                  "description":"Ok"
+               },
+               "400":{
+                  "description":"Remover papel do grupo.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Grupo não encontrado ",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/groups/{code}/users":{
+         "get":{
+            "tags":[
+               "Groups"
+            ],
+            "summary":"Retorna uma lista de usuários associado ao grupo",
+            "description":"",
+            "operationId":"findUsersByGroup",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do grupo",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"userCode",
+                  "in":"query",
+                  "description":"Código do usuário",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"login",
+                  "in":"query",
+                  "description":"Usuário Administrador.login",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"email",
+                  "in":"query",
+                  "description":"E-mail",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"firstName",
+                  "in":"query",
+                  "description":"Primeiro nome",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"lastName",
+                  "in":"query",
+                  "description":"Último nome",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"fullName",
+                  "in":"query",
+                  "description":"Nome completo",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"showInactive",
+                  "in":"query",
+                  "description":"Usuário Administrador.show.inactive",
+                  "required":false,
+                  "type":"boolean",
+                  "default":false
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar listar usuários associado ao grupo",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Retorna uma lista de usuários associado ao grupo.notfound",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "Groups"
+            ],
+            "summary":"Adicionar usuário no grupo",
+            "description":"",
+            "operationId":"addUserToGroup",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do grupo",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "in":"body",
+                  "name":"body",
+                  "description":"Dados do usuário",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/AddUser"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserFind"
+                  }
+               },
+               "400":{
+                  "description":"Adicionar usuário no grupo.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Grupo não encontrado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/groups/{code}/users/{login}":{
+         "delete":{
+            "tags":[
+               "Groups"
+            ],
+            "summary":"Remover usuário do grupo",
+            "description":"",
+            "operationId":"removeUserFromGroup",
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do grupo",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "204":{
+                  "description":"Ok"
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar remover o usuário do grupo",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Grupo não encontrado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/roles":{
+         "get":{
+            "tags":[
+               "Roles"
+            ],
+            "summary":"Listar papéis",
+            "description":"",
+            "operationId":"findRoles",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"description",
+                  "in":"query",
+                  "description":"Descrição do papel",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/RoleCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Listar papéis.failed ",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "Roles"
+            ],
+            "summary":"Adicionar um novo papel",
+            "description":"",
+            "operationId":"create",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "in":"body",
+                  "name":"body",
+                  "description":"Dados do papel",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/RoleCreate"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/RoleFind"
+                  }
+               },
+               "400":{
+                  "description":"Adicionar um novo papel.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/roles/{code}":{
+         "get":{
+            "tags":[
+               "Roles"
+            ],
+            "summary":"Listar papéis por código",
+            "description":"",
+            "operationId":"findByRoleCode",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do papel",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/RoleFind"
+                  }
+               },
+               "400":{
+                  "description":"Listar papéis por código.failed ",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Papel não encontrado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "put":{
+            "tags":[
+               "Roles"
+            ],
+            "summary":"Atualizar informações do papel",
+            "description":"",
+            "operationId":"update",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do papel",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "in":"body",
+                  "name":"body",
+                  "description":"Dados do papel",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/RoleUpdate"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/RoleFind"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar atualizar o papel",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "delete":{
+            "tags":[
+               "Roles"
+            ],
+            "summary":"Remover papel",
+            "description":"",
+            "operationId":"deleteRole",
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"The role identifier code",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "204":{
+                  "description":"Ok"
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar exluir o papel",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Papel não encontrado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/roles/{code}/users":{
+         "get":{
+            "tags":[
+               "Roles"
+            ],
+            "summary":"Retorn uma lista de usuários relaciado ao papel",
+            "description":"",
+            "operationId":"findUsersByRole",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do papel",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"userCode",
+                  "in":"query",
+                  "description":"Código do usuário",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"login",
+                  "in":"query",
+                  "description":"Usuário Administrador.login",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"email",
+                  "in":"query",
+                  "description":"E-mail",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"firstName",
+                  "in":"query",
+                  "description":"Primeiro nome",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"lastName",
+                  "in":"query",
+                  "description":"Último nome",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"fullName",
+                  "in":"query",
+                  "description":"Nome completo",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"showInactive",
+                  "in":"query",
+                  "description":"Usuário Administrador.show.inactive",
+                  "required":false,
+                  "type":"boolean",
+                  "default":false
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao listar usuários relacionados ao papel",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Papel não encontrado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "Roles"
+            ],
+            "summary":"Relacionar usuário com papel",
+            "description":"",
+            "operationId":"addUserToRole",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do papel",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "in":"body",
+                  "name":"body",
+                  "description":"Dados do usuário",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/AddUser"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserFind"
+                  }
+               },
+               "400":{
+                  "description":"Relacionar usuário com papel.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Papel não encontrado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/roles/{code}/users/{login}":{
+         "delete":{
+            "tags":[
+               "Roles"
+            ],
+            "summary":"Remover usuário do papel",
+            "description":"",
+            "operationId":"removeUserFromRole",
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do papel",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "204":{
+                  "description":"Ok"
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar remover usuário do papel",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Papel não encontrado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/tenants":{
+         "get":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Retorna uma lista de empresas",
+            "description":"",
+            "operationId":"findTenants",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"description",
+                  "in":"query",
+                  "description":"Descrição da Empresa",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"showInactive",
+                  "in":"query",
+                  "description":"Exibir empresas inativas",
+                  "required":false,
+                  "type":"boolean",
+                  "default":false
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/TenantCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar listar todas as empresas",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Adicionar uma nova empresa",
+            "description":"",
+            "operationId":"createTenant",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "in":"body",
+                  "name":"Dados da empresa",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/TenantCreate"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/TenantFind"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar adicionar uma nova empresa",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/tenants/identity/ping":{
+         "get":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Realiza teste de conexão entre  fluig x identity",
+            "description":"",
+            "operationId":"ping",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"baseURL",
+                  "in":"query",
+                  "description":"Realiza teste de conexão entre  fluig x identity.baseurl",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"token",
+                  "in":"query",
+                  "description":"Realiza teste de conexão entre  fluig x identity.token",
+                  "required":false,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/TenantIdentityPing"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Empresa não encontrada",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/tenants/{id}":{
+         "get":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Buscar empresa pelo identificador único",
+            "description":"",
+            "operationId":"findTenantById",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"Identificador único da Empresa",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/TenantFind"
+                  }
+               },
+               "400":{
+                  "description":"Buscar empresa pelo identificador único.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Empresa não encontrada",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "put":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Editar empresa",
+            "description":"",
+            "operationId":"updateTenant",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"Identificador único da Empresa",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               },
+               {
+                  "in":"body",
+                  "name":"Dados da empresa",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/TenantUpdate"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/TenantFind"
+                  }
+               },
+               "400":{
+                  "description":"Editar empresa.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/tenants/{id}/data":{
+         "get":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Retorna uma lista de dados adicionais da empresa",
+            "description":"",
+            "operationId":"findTenantData",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"Identificador único da Empresa",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               },
+               {
+                  "name":"dataKey",
+                  "in":"query",
+                  "description":"Chave",
+                  "required":false,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/TenantDataCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Retorna uma lista de dados adicionais da empresa.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Empresa não encontrada",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Cria ou atualizar informações adicionais da empresa",
+            "description":"",
+            "operationId":"saveTenantData",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"Identificador único da Empresa",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               },
+               {
+                  "in":"body",
+                  "name":"Informações adicionais da empresa",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/Aditional tenant data"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/TenantData"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar criar/atualizar dados adicionais da empresa",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Empresa não encontrada",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/tenants/{id}/datas":{
+         "get":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Retorna uma lista de dados adicionais da empresa",
+            "description":"",
+            "operationId":"findTenantDatas",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"Identificador único da Empresa",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               },
+               {
+                  "name":"dataKey",
+                  "in":"query",
+                  "description":"Chave",
+                  "required":false,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/TenantDataCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Retorna uma lista de dados adicionais da empresa.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Empresa não encontrada",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            },
+            "deprecated":true
+         },
+         "post":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Cria ou atualizar informações adicionais da empresa",
+            "description":"",
+            "operationId":"saveTenantDatas",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"Identificador único da Empresa",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               },
+               {
+                  "in":"body",
+                  "name":"Informações adicionais da empresa",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/Aditional tenant data"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/TenantData"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar criar/atualizar dados adicionais da empresa",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Empresa não encontrada",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            },
+            "deprecated":true
+         }
+      },
+      "/v1/tenants/{id}/groups":{
+         "get":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Retorna uma lista de grupos cadastrados na empresa",
+            "description":"",
+            "operationId":"findGroupsOfTenant",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"Identificador único da Empresa",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               },
+               {
+                  "name":"code",
+                  "in":"query",
+                  "description":"Código da Empresa",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"description",
+                  "in":"query",
+                  "description":"Descrição da Empresa",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/GroupCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar listar os grupos da empresa",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Empresa não encontrada",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/tenants/{id}/roles":{
+         "get":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Retorna uma lista de papéis da empresa",
+            "description":"",
+            "operationId":"findRolesOfTenant",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"Identificador único da Empresa",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               },
+               {
+                  "name":"code",
+                  "in":"query",
+                  "description":"Código da Empresa",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"description",
+                  "in":"query",
+                  "description":"Descrição da Empresa",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/RoleCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Retorna uma lista de papéis da empresa.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Empresa não encontrada",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/tenants/{id}/users":{
+         "get":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Retorna uma lista de empresas.user",
+            "description":"",
+            "operationId":"findUsersByTenant",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"Identificador único da Empresa",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               },
+               {
+                  "name":"userCode",
+                  "in":"query",
+                  "description":"Código do usuário",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"login",
+                  "in":"query",
+                  "description":"Usuário Administrador.login",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"email",
+                  "in":"query",
+                  "description":"E-mail",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"firstName",
+                  "in":"query",
+                  "description":"Primeiro nome",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"lastName",
+                  "in":"query",
+                  "description":"Último nome",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"role",
+                  "in":"query",
+                  "description":"Código do papel",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"genericId",
+                  "in":"query",
+                  "description":"Identificador Genérico",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"showInactive",
+                  "in":"query",
+                  "description":"Usuário Administrador.show.inactive",
+                  "required":false,
+                  "type":"boolean",
+                  "default":false
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Retorna uma lista de empresas.user.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Empresa não encontrada",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/tenants/{id}/users/count":{
+         "get":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Retorna a quantidade de usuários por empresa",
+            "description":"",
+            "operationId":"findUsersCountByTenant",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"id",
+                  "in":"path",
+                  "description":"Identificador único da Empresa",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserCount"
+                  }
+               },
+               "400":{
+                  "description":"Retorna a quantidade de usuários por empresa.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Empresa não encontrada",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/tenants/{tenantId}/identity/migration-log":{
+         "get":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Relatório de usuários enviados para o identity ",
+            "description":"",
+            "operationId":"userMigrationLog",
+            "produces":[
+               "application/octet-stream"
+            ],
+            "parameters":[
+               {
+                  "name":"tenantId",
+                  "in":"path",
+                  "description":"Identificador único da Empresa",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok"
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar buscar o arquivo de log de migração de usuários",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado ",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Empresa não encontrada ",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/tenants/{tenantId}/identity/send-users":{
+         "post":{
+            "tags":[
+               "Tenants"
+            ],
+            "summary":"Enviar usuários do fluig para o identity",
+            "description":"",
+            "operationId":"sendUsers",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"tenantId",
+                  "in":"path",
+                  "description":"Identificador único da Empresa",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               }
+            ],
+            "responses":{
+               "204":{
+                  "description":"Ok"
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar enviar os usuários da base fluig para o identity",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/users":{
+         "get":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Retorna uma lista de usuários",
+            "description":"",
+            "operationId":"findUsers",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"code",
+                  "in":"query",
+                  "description":"Código do usuário",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"email",
+                  "in":"query",
+                  "description":"E-mail",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"firstName",
+                  "in":"query",
+                  "description":"Primeiro nome",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"lastName",
+                  "in":"query",
+                  "description":"Último nome",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"role",
+                  "in":"query",
+                  "description":"Código do papel",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"genericId",
+                  "in":"query",
+                  "description":"Identificador Genérico",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"showInactive",
+                  "in":"query",
+                  "description":"Usuário Administrador.show.inactive",
+                  "required":false,
+                  "type":"boolean",
+                  "default":false
+               },
+               {
+                  "name":"currentUser",
+                  "in":"query",
+                  "description":"Utilizar dados do usuário atual?",
+                  "required":false,
+                  "type":"boolean",
+                  "default":false
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar listar os usuários",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Adicionar um novo usuário",
+            "description":"",
+            "operationId":"createUser",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "in":"body",
+                  "name":"Dados do usuário",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/UserCreate"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserFind"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar adicionar um novo usuário",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/users/{login}":{
+         "get":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Filtrar usuário por login",
+            "description":"",
+            "operationId":"findUserByLogin",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserFind"
+                  }
+               },
+               "400":{
+                  "description":"Filtrar usuário por login.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Usuário não encontrado!",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "put":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Editar usuário",
+            "description":"",
+            "operationId":"updateUser",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "in":"body",
+                  "name":"Dados do usuário",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/UserUpdate"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserFind"
+                  }
+               },
+               "400":{
+                  "description":"Editar usuário.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/users/{login}/activate":{
+         "post":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Ativar usuário",
+            "description":"",
+            "operationId":"activateUser",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok"
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Usuário não encontrado!",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/users/{login}/deactivate":{
+         "post":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Desativar usuário",
+            "description":"",
+            "operationId":"deactivateUser",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok"
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Usuário não encontrado!",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/users/{login}/groups":{
+         "get":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Retorna uma lista de usuários.group.by.login",
+            "description":"",
+            "operationId":"findGroupsOfUser",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"returnAll",
+                  "in":"query",
+                  "description":"Retorna todos os grupos, ignorando paginação",
+                  "required":false,
+                  "type":"boolean",
+                  "default":false
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/GroupCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar listar os grupos do usuário",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Usuário não encontrado!",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Adicionar usuário há um grupo",
+            "description":"",
+            "operationId":"createUserGroup",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "in":"body",
+                  "name":"body",
+                  "description":"Dados do grupo",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/AddToUser"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserFind"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar adicionar usuário há um grupo",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Usuário não encontrado!",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/users/{login}/groups/{code}":{
+         "delete":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Remover usuário do grupo",
+            "description":"",
+            "operationId":"removeUserFromGroup",
+            "parameters":[
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do grupo",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "204":{
+                  "description":"Ok"
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar remover o usuário do grupo informado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Usuário não encontrado!",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/users/{login}/picture":{
+         "get":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Retorna a imagem do usuário por login",
+            "description":"",
+            "operationId":"getPictureUser",
+            "produces":[
+               "image/png",
+               "image/jpg",
+               "image/jpeg"
+            ],
+            "parameters":[
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"width",
+                  "in":"query",
+                  "description":"Largura da imagem",
+                  "required":false,
+                  "type":"integer",
+                  "format":"int32",
+                  "enum":[
+                     34,
+                     60,
+                     100,
+                     140
+                  ]
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok"
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/users/{login}/roles":{
+         "get":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Retorna uma lista de papéis relacionado ao usuário",
+            "description":"",
+            "operationId":"findRolesOfUser",
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"fields",
+                  "in":"query",
+                  "description":"Dynamic fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"page",
+                  "in":"query",
+                  "description":"Page Number",
+                  "required":false,
+                  "type":"integer",
+                  "default":1,
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"The number of items to be returned in each page.",
+                  "required":false,
+                  "type":"integer",
+                  "default":1000,
+                  "format":"int32"
+               },
+               {
+                  "name":"expand",
+                  "in":"query",
+                  "description":"Expandable fields",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               },
+               {
+                  "name":"order",
+                  "in":"query",
+                  "description":"Order by field",
+                  "required":false,
+                  "type":"array",
+                  "items":{
+                     "type":"string"
+                  },
+                  "collectionFormat":"multi"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/RoleCollectionResponse"
+                  }
+               },
+               "400":{
+                  "description":"Retorna uma lista de papéis relacionado ao usuário.failed",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Usuário não encontrado!",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Adicionar um papel ao usuário",
+            "description":"",
+            "operationId":"createUserRole",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "in":"body",
+                  "name":"body",
+                  "description":"Dados do papel",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/AddToUser"
+                  }
+               }
+            ],
+            "responses":{
+               "201":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserFind"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar adicionar um papel ao usuário",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Usuário não encontrado!",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/users/{login}/roles/{code}":{
+         "delete":{
+            "tags":[
+               "Users"
+            ],
+            "summary":"Remover usuário do papel",
+            "description":"",
+            "operationId":"removeUserFromRole",
+            "parameters":[
+               {
+                  "name":"login",
+                  "in":"path",
+                  "description":"Usuário Administrador.login",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"code",
+                  "in":"path",
+                  "description":"Código do papel",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "204":{
+                  "description":"Ok"
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar remover o usuário do papel informado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"O usuário não está autenticado",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "404":{
+                  "description":"Usuário não encontrado!",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/validate/fluigserver":{
+         "get":{
+            "tags":[
+               "Validations"
+            ],
+            "summary":"Validate connection to this server",
+            "description":"",
+            "operationId":"validateFluigServer",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success",
+                  "schema":{
+                     "$ref":"#/definitions/FluigServerResponseVO"
+                  }
+               },
+               "400":{
+                  "description":"Failed to validate, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "500":{
+                  "description":"Internal error, see response for more details",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      },
+      "/v1/validate/user":{
+         "post":{
+            "tags":[
+               "Validations"
+            ],
+            "summary":"Validar usuário",
+            "description":"",
+            "operationId":"validateUser",
+            "consumes":[
+               "application/json; charset=UTF-8"
+            ],
+            "produces":[
+               "application/json; charset=UTF-8"
+            ],
+            "parameters":[
+               {
+                  "in":"body",
+                  "name":"Dados do usuário",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/UserValidateDTO"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Ok",
+                  "schema":{
+                     "$ref":"#/definitions/UserValidateDTO"
+                  }
+               },
+               "400":{
+                  "description":"Ocorreu um erro ao tentar validar usuário o usuário",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               },
+               "401":{
+                  "description":"Ok"
+               },
+               "500":{
+                  "description":"Erro interno do servidor, veja a resposta para mais detalhes",
+                  "schema":{
+                     "$ref":"#/definitions/ErrorResponse"
+                  }
+               }
+            }
+         }
+      }
+   },
+   "definitions":{
+      "AddRole":{
+         "type":"object",
+         "required":[
+            "code"
+         ],
+         "properties":{
+            "code":{
+               "type":"string",
+               "description":"admin.api.add.role.code"
+            }
+         }
+      },
+      "AddToUser":{
+         "type":"object",
+         "required":[
+            "code"
+         ],
+         "properties":{
+            "code":{
+               "type":"string",
+               "description":"Código do usuário"
+            }
+         }
+      },
+      "AddUser":{
+         "type":"object",
+         "required":[
+            "login"
+         ],
+         "properties":{
+            "login":{
+               "type":"string",
+               "description":"Usuário Administrador.login"
+            }
+         }
+      },
+      "AdditionalData":{
+         "type":"object",
+         "required":[
+            "key",
+            "value"
+         ],
+         "properties":{
+            "key":{
+               "type":"string",
+               "description":"Chave"
+            },
+            "value":{
+               "type":"string",
+               "description":"Valor"
+            }
+         }
+      },
+      "Aditional tenant data":{
+         "type":"object",
+         "required":[
+            "key",
+            "value"
+         ],
+         "properties":{
+            "key":{
+               "type":"string",
+               "description":"Chave"
+            },
+            "value":{
+               "type":"string",
+               "description":"Valor"
+            }
+         }
+      },
+      "ErrorResponse":{
+         "type":"object",
+         "properties":{
+            "code":{
+               "type":"string"
+            },
+            "message":{
+               "type":"string"
+            },
+            "detailedMessage":{
+               "type":"string"
+            },
+            "helpUrl":{
+               "type":"string"
+            },
+            "details":{
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/ErrorResponse"
+               }
+            }
+         }
+      },
+      "FluigServer":{
+         "type":"object",
+         "properties":{
+            "id":{
+               "type":"integer",
+               "format":"int64",
+               "description":"id"
+            },
+            "name":{
+               "type":"string",
+               "description":"name"
+            },
+            "url":{
+               "type":"string",
+               "description":"url"
+            },
+            "consumerKey":{
+               "type":"string",
+               "description":"consumerKey"
+            },
+            "consumerSecret":{
+               "type":"string",
+               "description":"consumerSecret"
+            },
+            "tokenSecret":{
+               "type":"string",
+               "description":"tokenSecret"
+            },
+            "tokenAccess":{
+               "type":"string",
+               "description":"tokenAccess"
+            }
+         }
+      },
+      "FluigServerCollectionResponse":{
+         "type":"object",
+         "properties":{
+            "items":{
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/FluigServer"
+               }
+            },
+            "hasNext":{
+               "type":"boolean",
+               "readOnly":true
+            }
+         }
+      },
+      "FluigServerCreate":{
+         "type":"object",
+         "properties":{
+            "name":{
+               "type":"string",
+               "description":"name"
+            },
+            "url":{
+               "type":"string",
+               "description":"url"
+            },
+            "consumerKey":{
+               "type":"string",
+               "description":"consumerKey"
+            },
+            "consumerSecret":{
+               "type":"string",
+               "description":"consumerSecret"
+            },
+            "tokenSecret":{
+               "type":"string",
+               "description":"tokenSecret"
+            },
+            "tokenAccess":{
+               "type":"string",
+               "description":"tokenAccess"
+            }
+         }
+      },
+      "FluigServerResponseVO":{
+         "type":"object",
+         "properties":{
+            "message":{
+               "type":"string"
+            }
+         }
+      },
+      "GroupCollectionResponse":{
+         "type":"object",
+         "properties":{
+            "items":{
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/GroupFind"
+               }
+            },
+            "hasNext":{
+               "type":"boolean",
+               "readOnly":true
+            }
+         }
+      },
+      "GroupCreate":{
+         "type":"object",
+         "properties":{
+            "code":{
+               "type":"string",
+               "description":"Código do grupo"
+            },
+            "description":{
+               "type":"string",
+               "description":"Descrição do grupo"
+            }
+         }
+      },
+      "GroupFind":{
+         "type":"object",
+         "properties":{
+            "id":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Identificador único do grupo"
+            },
+            "tenantId":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Identificador único da Empresa"
+            },
+            "code":{
+               "type":"string",
+               "description":"Código do grupo"
+            },
+            "description":{
+               "type":"string",
+               "description":"Descrição do grupo"
+            },
+            "type":{
+               "type":"string",
+               "description":"Adicionar um novo grupo.type"
+            },
+            "data":{
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/AdditionalData"
+               }
+            }
+         }
+      },
+      "GroupUpdate":{
+         "type":"object",
+         "required":[
+            "description"
+         ],
+         "properties":{
+            "description":{
+               "type":"string",
+               "description":"Descrição do grupo"
+            }
+         }
+      },
+      "RoleCollectionResponse":{
+         "type":"object",
+         "properties":{
+            "items":{
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/RoleFind"
+               }
+            },
+            "hasNext":{
+               "type":"boolean",
+               "readOnly":true
+            }
+         }
+      },
+      "RoleCreate":{
+         "type":"object",
+         "required":[
+            "code",
+            "description"
+         ],
+         "properties":{
+            "code":{
+               "type":"string",
+               "description":"Código do papel"
+            },
+            "description":{
+               "type":"string",
+               "description":"Descrição do papel"
+            }
+         }
+      },
+      "RoleFind":{
+         "type":"object",
+         "required":[
+            "code",
+            "description",
+            "id",
+            "tenantId"
+         ],
+         "properties":{
+            "id":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Identificador únido do papel"
+            },
+            "tenantId":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Identificador único da Empresa"
+            },
+            "code":{
+               "type":"string",
+               "description":"Código do papel"
+            },
+            "description":{
+               "type":"string",
+               "description":"Descrição do papel"
+            },
+            "data":{
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/AdditionalData"
+               }
+            }
+         }
+      },
+      "RoleUpdate":{
+         "type":"object",
+         "required":[
+            "description"
+         ],
+         "properties":{
+            "description":{
+               "type":"string",
+               "description":"Descrição do papel"
+            }
+         }
+      },
+      "ServerInfo":{
+         "type":"object",
+         "properties":{
+            "serverURL":{
+               "type":"string",
+               "description":"URL do servidor"
+            }
+         }
+      },
+      "TenantCollectionResponse":{
+         "type":"object",
+         "properties":{
+            "items":{
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/TenantFind"
+               }
+            },
+            "hasNext":{
+               "type":"boolean",
+               "readOnly":true
+            }
+         }
+      },
+      "TenantCreate":{
+         "type":"object",
+         "required":[
+            "code",
+            "defaultDirectory",
+            "description",
+            "federalId",
+            "organizationUrl",
+            "tenantId",
+            "user"
+         ],
+         "properties":{
+            "tenantId":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Identificador único da Empresa"
+            },
+            "code":{
+               "type":"string",
+               "description":"Código da Empresa"
+            },
+            "federalId":{
+               "type":"string",
+               "description":"CNPJ"
+            },
+            "description":{
+               "type":"string",
+               "description":"Descrição da Empresa"
+            },
+            "organizationUrl":{
+               "type":"string",
+               "description":"Site da empresa"
+            },
+            "defaultDirectory":{
+               "type":"string",
+               "description":"Diretório do volume"
+            },
+            "thumbnailEnabled":{
+               "type":"boolean",
+               "description":"Habilitar"
+            },
+            "user":{
+               "description":"Usuário Administrador",
+               "$ref":"#/definitions/UserTenantCreate"
+            },
+            "mailConfig":{
+               "description":"Configurações de e-mail",
+               "$ref":"#/definitions/TenantCreateMailConfig"
+            },
+            "identityConfig":{
+               "description":"Configurações de integração com fluig identity",
+               "$ref":"#/definitions/TenantCreateIdentityConfig"
+            },
+            "data":{
+               "type":"array",
+               "description":"Informações adicionais da empresa",
+               "uniqueItems":true,
+               "items":{
+                  "$ref":"#/definitions/Aditional tenant data"
+               }
+            }
+         }
+      },
+      "TenantCreateIdentityConfig":{
+         "type":"object",
+         "properties":{
+            "baseUrl":{
+               "type":"string",
+               "description":"Realiza teste de conexão entre  fluig x identity.baseurl"
+            },
+            "configurationToken":{
+               "type":"string",
+               "description":"Realiza teste de conexão entre  fluig x identity.token"
+            },
+            "justInTimeProvisioning":{
+               "type":"boolean",
+               "description":"Apenas em tempo de provisionamento"
+            },
+            "idpId":{
+               "type":"string",
+               "description":"Configurações de integração com fluig identity.idpid"
+            },
+            "idpLogOff":{
+               "type":"boolean",
+               "description":"Sair do identity , quando sair do fluig?"
+            }
+         }
+      },
+      "TenantCreateMailConfig":{
+         "type":"object",
+         "properties":{
+            "host":{
+               "type":"string",
+               "description":"Servidor de e-mail"
+            },
+            "port":{
+               "type":"integer",
+               "format":"int32",
+               "description":"Porta do servidor de e-mail"
+            },
+            "from":{
+               "type":"string",
+               "description":"Configurações de e-mail.from"
+            },
+            "authentication":{
+               "type":"boolean",
+               "description":"O servidor de e-mail requer autenticação?"
+            },
+            "security":{
+               "type":"string",
+               "description":"Informação segura"
+            },
+            "user":{
+               "type":"string",
+               "description":"Usuário do servidor de e-mail"
+            },
+            "password":{
+               "type":"string",
+               "description":"Senha do servidor de e-mail"
+            },
+            "grouped":{
+               "type":"boolean",
+               "description":"Agrupar? "
+            }
+         }
+      },
+      "TenantData":{
+         "type":"object",
+         "properties":{
+            "id":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Identificador único da Empresa"
+            },
+            "key":{
+               "type":"string",
+               "description":"Chave"
+            },
+            "value":{
+               "type":"string",
+               "description":"Valor"
+            },
+            "hide":{
+               "type":"boolean",
+               "description":"Oculto"
+            }
+         }
+      },
+      "TenantDataCollectionResponse":{
+         "type":"object",
+         "properties":{
+            "items":{
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/TenantData"
+               }
+            },
+            "hasNext":{
+               "type":"boolean",
+               "readOnly":true
+            }
+         }
+      },
+      "TenantFind":{
+         "type":"object",
+         "properties":{
+            "id":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Identificador único da Empresa"
+            },
+            "code":{
+               "type":"string",
+               "description":"Código da Empresa"
+            },
+            "federalId":{
+               "type":"string",
+               "description":"CNPJ"
+            },
+            "description":{
+               "type":"string",
+               "description":"Descrição da Empresa"
+            },
+            "organizationUrl":{
+               "type":"string",
+               "description":"Site da empresa"
+            },
+            "mailConfig":{
+               "$ref":"#/definitions/TenantMailConfig"
+            },
+            "identityConfig":{
+               "$ref":"#/definitions/TenantIdentityConfig"
+            },
+            "data":{
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/TenantData"
+               }
+            }
+         }
+      },
+      "TenantIdentityConfig":{
+         "type":"object",
+         "required":[
+            "baseURL",
+            "configurationToken",
+            "enabled",
+            "justInTimeProvisioning"
+         ],
+         "properties":{
+            "enabled":{
+               "type":"boolean",
+               "description":"Habilitar acesso com identity? "
+            },
+            "configurationToken":{
+               "type":"string",
+               "description":"Realiza teste de conexão entre  fluig x identity.token"
+            },
+            "baseURL":{
+               "type":"string",
+               "description":"Realiza teste de conexão entre  fluig x identity.baseurl"
+            },
+            "justInTimeProvisioning":{
+               "type":"boolean",
+               "description":"Apenas em tempo de provisionamento"
+            }
+         }
+      },
+      "TenantIdentityPing":{
+         "type":"object",
+         "required":[
+            "message"
+         ],
+         "properties":{
+            "message":{
+               "type":"string",
+               "description":"Mensagem"
+            }
+         }
+      },
+      "TenantInfo":{
+         "type":"object",
+         "properties":{
+            "tenantId":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Identificador único da Empresa"
+            },
+            "tenantDescription":{
+               "type":"string",
+               "description":"Descrição da Empresa"
+            },
+            "tenantCode":{
+               "type":"string",
+               "description":"Código da Empresa"
+            }
+         }
+      },
+      "TenantMailConfig":{
+         "type":"object",
+         "properties":{
+            "enabled":{
+               "type":"boolean"
+            },
+            "host":{
+               "type":"string",
+               "description":"Servidor de e-mail"
+            },
+            "port":{
+               "type":"integer",
+               "format":"int32",
+               "description":"Porta do servidor de e-mail"
+            },
+            "from":{
+               "type":"string",
+               "description":"Configurações de e-mail.from"
+            },
+            "authentication":{
+               "type":"boolean",
+               "description":"O servidor de e-mail requer autenticação?"
+            },
+            "security":{
+               "type":"string",
+               "description":"Informação segura"
+            },
+            "user":{
+               "type":"string",
+               "description":"Usuário do servidor de e-mail"
+            },
+            "password":{
+               "type":"string",
+               "description":"Senha do servidor de e-mail"
+            },
+            "grouped":{
+               "type":"boolean",
+               "description":"Agrupar? "
+            }
+         }
+      },
+      "TenantUpdate":{
+         "type":"object",
+         "properties":{
+            "federalId":{
+               "type":"string",
+               "description":"CNPJ "
+            },
+            "description":{
+               "type":"string",
+               "description":"Descrição da Empresa"
+            },
+            "organizationUrl":{
+               "type":"string",
+               "description":"Site da empresa"
+            },
+            "thumbnailEnabled":{
+               "type":"boolean",
+               "description":"Habilitar"
+            },
+            "identityConfig":{
+               "description":"Configurações de integração com fluig identity",
+               "$ref":"#/definitions/TenantIdentityConfig"
+            }
+         }
+      },
+      "UserCollectionResponse":{
+         "type":"object",
+         "properties":{
+            "items":{
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/UserFind"
+               }
+            },
+            "hasNext":{
+               "type":"boolean",
+               "readOnly":true
+            }
+         }
+      },
+      "UserCount":{
+         "type":"object",
+         "properties":{
+            "total":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Usuário Administrador.total"
+            },
+            "active":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Ativo"
+            },
+            "blocked":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Usuário Administrador.blocked"
+            }
+         }
+      },
+      "UserCreate":{
+         "type":"object",
+         "required":[
+            "code",
+            "email",
+            "firstName",
+            "lastName",
+            "login",
+            "password"
+         ],
+         "properties":{
+            "login":{
+               "type":"string",
+               "description":"Usuário Administrador.login"
+            },
+            "code":{
+               "type":"string",
+               "description":"Código do usuário"
+            },
+            "email":{
+               "type":"string",
+               "description":"E-mail"
+            },
+            "firstName":{
+               "type":"string",
+               "description":"Primeiro nome"
+            },
+            "lastName":{
+               "type":"string",
+               "description":"Último nome"
+            },
+            "fullName":{
+               "type":"string",
+               "description":"Nome completo"
+            },
+            "birthDate":{
+               "type":"string",
+               "format":"date-time",
+               "description":"Data de Nascimento"
+            },
+            "password":{
+               "type":"string",
+               "description":"Usuário Administrador.password"
+            },
+            "locationId":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Usuário Administrador.location.id"
+            },
+            "data":{
+               "type":"array",
+               "description":"Usuário Administrador.data",
+               "items":{
+                  "$ref":"#/definitions/AdditionalData"
+               }
+            },
+            "idpId":{
+               "type":"string",
+               "description":"Configurações de integração com fluig identity.idpid"
+            }
+         }
+      },
+      "UserFind":{
+         "type":"object",
+         "properties":{
+            "id":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Identificador único do usuário"
+            },
+            "login":{
+               "type":"string",
+               "description":"Usuário Administrador.login"
+            },
+            "code":{
+               "type":"string",
+               "description":"Código do usuário"
+            },
+            "email":{
+               "type":"string",
+               "description":"E-mail"
+            },
+            "firstName":{
+               "type":"string",
+               "description":"Primeiro nome"
+            },
+            "lastName":{
+               "type":"string",
+               "description":"Último nome"
+            },
+            "fullName":{
+               "type":"string",
+               "description":"Nome completo"
+            },
+            "birthDate":{
+               "type":"string",
+               "format":"date-time",
+               "description":"Data de Nascimento"
+            },
+            "idpId":{
+               "type":"string",
+               "description":"Configurações de integração com fluig identity.idpid"
+            },
+            "state":{
+               "type":"string",
+               "description":"Ativo"
+            },
+            "alias":{
+               "type":"string",
+               "description":"Alias"
+            },
+            "lastUpdateDate":{
+               "type":"string",
+               "format":"date-time",
+               "description":"Última atualização"
+            },
+            "tenantInfoDTO":{
+               "$ref":"#/definitions/TenantInfo"
+            },
+            "serverInfoDTO":{
+               "$ref":"#/definitions/ServerInfo"
+            },
+            "data":{
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/AdditionalData"
+               }
+            },
+            "roles":{
+               "type":"array",
+               "items":{
+                  "type":"string"
+               }
+            },
+            "groups":{
+               "type":"array",
+               "items":{
+                  "type":"string"
+               }
+            }
+         }
+      },
+      "UserTenantCreate":{
+         "type":"object",
+         "required":[
+            "email",
+            "firstName",
+            "lastName",
+            "login",
+            "password",
+            "userCode"
+         ],
+         "properties":{
+            "firstName":{
+               "type":"string",
+               "description":"Primeiro nome"
+            },
+            "lastName":{
+               "type":"string",
+               "description":"Último nome"
+            },
+            "birthDate":{
+               "type":"string",
+               "format":"date-time",
+               "description":"Data de Nascimento"
+            },
+            "login":{
+               "type":"string",
+               "description":"Usuário Administrador.login"
+            },
+            "password":{
+               "type":"string",
+               "description":"Usuário Administrador.password"
+            },
+            "email":{
+               "type":"string",
+               "description":"E-mail"
+            },
+            "userCode":{
+               "type":"string",
+               "description":"Código do usuário"
+            },
+            "data":{
+               "type":"array",
+               "description":"Usuário Administrador.data",
+               "uniqueItems":true,
+               "items":{
+                  "$ref":"#/definitions/AdditionalData"
+               }
+            }
+         }
+      },
+      "UserUpdate":{
+         "type":"object",
+         "properties":{
+            "email":{
+               "type":"string",
+               "description":"E-mail"
+            },
+            "firstName":{
+               "type":"string",
+               "description":"Primeiro nome"
+            },
+            "lastName":{
+               "type":"string",
+               "description":"Último nome"
+            },
+            "fullName":{
+               "type":"string",
+               "description":"Nome completo"
+            },
+            "birthDate":{
+               "type":"string",
+               "format":"date-time",
+               "description":"Data de Nascimento"
+            },
+            "locationId":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Usuário Administrador.location.id"
+            }
+         }
+      },
+      "UserValidateDTO":{
+         "type":"object",
+         "properties":{
+            "login":{
+               "type":"string",
+               "description":"Usuário Administrador.login"
+            },
+            "password":{
+               "type":"string",
+               "description":"Usuário Administrador.password"
+            },
+            "tenantId":{
+               "type":"integer",
+               "format":"int64",
+               "description":"Identificador único da Empresa"
+            }
+         }
+      }
+   }
+}

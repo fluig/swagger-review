@@ -1,14 +1,13 @@
 package com.api;
 
-import com.api.rules.EnsureHttpHttpsRule;
+import com.api.factory.FactoryRules;
 import com.api.rules.SwaggerRule;
-import com.api.rules.SwaggerRuleFailure;
+import com.api.factory.SwaggerRuleFailure;
 import com.google.gson.Gson;
 import io.swagger.models.Swagger;
 import io.swagger.parser.SwaggerParser;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileVisitOption;
@@ -23,6 +22,7 @@ public class Utils {
     public static void executeValidation(Path pathBaseDir){
 
         try {
+
             List<Path> javaFiles = Files.find(
                     pathBaseDir,
                     Integer.MAX_VALUE,
@@ -42,12 +42,9 @@ public class Utils {
 
                     Swagger swagger = swaggerParser.read(path.toString());
 
-                    // para cada regra
-                    // result.add( regra.execute())
-
-                    SwaggerRule swaggerRule = new EnsureHttpHttpsRule();
-
-                    swaggerRuleFailures.addAll(swaggerRule.execute(swagger));
+                    for (SwaggerRule swaggerRule : FactoryRules.getRules()){
+                        swaggerRuleFailures.addAll(swaggerRule.execute(swagger));
+                    }
 
                     if (swaggerRuleFailures.size() > 0){
 

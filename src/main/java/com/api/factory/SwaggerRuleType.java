@@ -1,4 +1,4 @@
-package com.api.rules;
+package com.api.factory;
 
 public enum SwaggerRuleType {
     ERROR,
