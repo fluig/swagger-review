@@ -8,19 +8,22 @@ import java.util.List;
 
 public final class EnsureUniqueOperationIdRule implements SwaggerRule {
 
+    private static final String RULENAME = "RULE0011";
+    private static final String MESSAGE = "O path %s com o operationID %s não é único.";
+
     @Override
     public String getName() {
-        return null;
+        return RULENAME;
     }
 
     @Override
     public SwaggerRuleType getType() {
-        return null;
+        return SwaggerRuleType.ERROR;
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "Cada operação deve ter um operationID único.";
     }
 
     @Override
