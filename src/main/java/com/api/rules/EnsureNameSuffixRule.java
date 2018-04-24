@@ -37,7 +37,6 @@ public class EnsureNameSuffixRule implements SwaggerRule {
     public List<SwaggerRuleFailure> execute(Swagger swagger) {
 
         ArrayList<String> entityNames = new ArrayList<>();
-
         entityNames.add("DTO");
         entityNames.add("VO");
 
