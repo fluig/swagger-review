@@ -33,8 +33,7 @@
       }
    ],
    "schemes":[
-      "https",
-      "http"
+      "http", "https"
    ],
    "paths":{
       "/v1/fluigservers":{
