@@ -8,19 +8,22 @@ import java.util.List;
 
 public final class EnsureValidJsonEntity implements SwaggerRule {
 
+    private static final String RULENAME = "RULE0007";
+    private static final String MESSAGE = "O path %s retorna um valor primitivo ao invés de uma JSON válido.";
+
     @Override
     public String getName() {
-        return null;
+        return RULENAME;
     }
 
     @Override
     public SwaggerRuleType getType() {
-        return null;
+        return SwaggerRuleType.ERROR;
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "As entidades de retorno das APIs deve ser um JSON válido e não um valor primitivo.";
     }
 
     @Override
