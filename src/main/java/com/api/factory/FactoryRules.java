@@ -4,6 +4,7 @@ import com.api.rules.EnsureHttpHttpsRule;
 import com.api.rules.EnsureNameSuffixRule;
 import com.api.rules.EnsureOperationDescriptionRule;
 import com.api.rules.EnsureOperationIdRule;
+import com.api.rules.EnsureUniqueOperationIdRule;
 import com.api.rules.EnsureValidVerbsRule;
 import com.api.rules.SwaggerRule;
 
@@ -21,6 +22,7 @@ public class FactoryRules {
         swaggerRules.add(new EnsureValidVerbsRule());
         swaggerRules.add(new EnsureNameSuffixRule());
         swaggerRules.add(new EnsureOperationDescriptionRule());
+        swaggerRules.add(new EnsureUniqueOperationIdRule());
 
         return swaggerRules;
 
