@@ -2,16 +2,12 @@ package com.api.rules;
 
 import com.api.factory.SwaggerRuleFailure;
 import com.api.factory.SwaggerRuleType;
-import io.swagger.models.HttpMethod;
-import io.swagger.models.Operation;
-import io.swagger.models.Path;
-import io.swagger.models.Response;
+import io.swagger.models.Model;
 import io.swagger.models.Swagger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public final class EnsureNameSuffixRule implements SwaggerRule {
 
@@ -42,33 +38,18 @@ public final class EnsureNameSuffixRule implements SwaggerRule {
 
         ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
 
-        for (Map.Entry<String, Path> pathEntry : swagger.getPaths().entrySet()) {
+        for (Map.Entry<String, Model> modelEntry : swagger.getDefinitions().entrySet()) {
 
-            for (Map.Entry<HttpMethod, Operation> operationEntry : pathEntry.getValue().getOperationMap().entrySet()) {
+            for (String entityName: entityNames) {
 
-                Set<Map.Entry<String, Response>> responses = operationEntry.getValue().getResponses().entrySet();
+                if (modelEntry.getKey().endsWith(entityName)) {
+                    failures.add(new SwaggerRuleFailure(
+                            getName(),
+                            String.format(MESSAGE, modelEntry.getKey()),
+                            getType()
+                    ));
 
-                responses.removeIf(responseEntry -> {
-                    int code = Integer.valueOf(responseEntry.getKey());
-                    return (code / 100) != 2 || responseEntry.getValue().getResponseSchema() == null;
-                });
-
-                for (Map.Entry<String, Response> responseEntry: responses) {
-
-                    String reference = responseEntry.getValue().getResponseSchema().getReference();
-
-                    for (String entityName: entityNames) {
-
-                        if (reference.endsWith(entityName)) {
-                            failures.add(new SwaggerRuleFailure(
-                                    getName(),
-                                    String.format(MESSAGE, reference),
-                                    getType()
-                            ));
-
-                            break;
-                        }
-                    }
+                    break;
                 }
             }
         }
