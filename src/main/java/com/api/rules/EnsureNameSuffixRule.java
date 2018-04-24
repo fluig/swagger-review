@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class EnsureNameSuffixRule implements SwaggerRule {
+public final class EnsureNameSuffixRule implements SwaggerRule {
 
     private static final String RULENAME = "RULE0006";
     private static final String MESSAGE = "A entidade de retorno %s não deve conter os sufixos: DTO, VO.";
