@@ -1,5 +1,6 @@
 package com.api.factory;
 
+import com.api.rules.Ensure400And500ResponseCodesRule;
 import com.api.rules.EnsureHttpHttpsRule;
 import com.api.rules.EnsureNameSuffixRule;
 import com.api.rules.EnsureOperationDescriptionRule;
@@ -23,6 +24,7 @@ public class FactoryRules {
         swaggerRules.add(new EnsureNameSuffixRule());
         swaggerRules.add(new EnsureOperationDescriptionRule());
         swaggerRules.add(new EnsureUniqueOperationIdRule());
+        swaggerRules.add(new Ensure400And500ResponseCodesRule());
 
         return swaggerRules;
 
