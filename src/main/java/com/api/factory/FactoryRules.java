@@ -1,6 +1,7 @@
 package com.api.factory;
 
 import com.api.rules.EnsureHttpHttpsRule;
+import com.api.rules.EnsureNameSuffixRule;
 import com.api.rules.EnsureOperationIdRule;
 import com.api.rules.EnsureValidVerbsRule;
 import com.api.rules.SwaggerRule;
@@ -17,6 +18,7 @@ public class FactoryRules {
         swaggerRules.add(new EnsureHttpHttpsRule());
         swaggerRules.add(new EnsureOperationIdRule());
         swaggerRules.add(new EnsureValidVerbsRule());
+        swaggerRules.add(new EnsureNameSuffixRule());
 
         return swaggerRules;
 
