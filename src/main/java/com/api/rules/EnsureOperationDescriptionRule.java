@@ -8,19 +8,22 @@ import java.util.List;
 
 public class EnsureOperationDescriptionRule implements SwaggerRule {
 
+    private static final String RULENAME = "RULE0009";
+    private static final String MESSAGE = "O path %s não contém uma descrição.";
+
     @Override
     public String getName() {
-        return null;
+        return RULENAME;
     }
 
     @Override
     public SwaggerRuleType getType() {
-        return null;
+        return SwaggerRuleType.ERROR;
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "Todas as operações devem ter uma descrição.";
     }
 
     @Override
