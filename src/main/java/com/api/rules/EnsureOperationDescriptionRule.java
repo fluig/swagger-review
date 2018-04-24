@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class EnsureOperationDescriptionRule implements SwaggerRule {
+public final class EnsureOperationDescriptionRule implements SwaggerRule {
 
     private static final String RULENAME = "RULE0009";
     private static final String MESSAGE = "O path %s não contém uma descrição.";
