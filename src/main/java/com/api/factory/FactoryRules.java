@@ -1,30 +1,48 @@
 package com.api.factory;
 
-import com.api.rules.Ensure400And500ResponseCodesRule;
-import com.api.rules.EnsureHttpHttpsRule;
-import com.api.rules.EnsureNameSuffixRule;
-import com.api.rules.EnsureOperationDescriptionRule;
-import com.api.rules.EnsureOperationIdRule;
-import com.api.rules.EnsureUniqueOperationIdRule;
-import com.api.rules.EnsureValidVerbsRule;
 import com.api.rules.SwaggerRule;
+import org.reflections.Reflections;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class FactoryRules {
 
-    public static List<SwaggerRule> getRules(){
+    public static List<SwaggerRule> getRules(ArrayList<String> ignoreRules){
 
         ArrayList<SwaggerRule> swaggerRules = new ArrayList<>();
 
-        swaggerRules.add(new EnsureHttpHttpsRule());
-        swaggerRules.add(new EnsureOperationIdRule());
-        swaggerRules.add(new EnsureValidVerbsRule());
-        swaggerRules.add(new EnsureNameSuffixRule());
-        swaggerRules.add(new EnsureOperationDescriptionRule());
-        swaggerRules.add(new EnsureUniqueOperationIdRule());
-        swaggerRules.add(new Ensure400And500ResponseCodesRule());
+        try {
+
+            Reflections reflections = new Reflections("com.api.rules");
+
+            Set<Class<? extends SwaggerRule>> allClasses =
+                    reflections.getSubTypesOf(SwaggerRule.class);
+
+            Iterator<Class<? extends SwaggerRule>> iterator = allClasses.iterator();
+
+            while (iterator.hasNext()) {
+
+                Class classVerification = iterator.next();
+
+                Object swaggerRule = classVerification.newInstance();
+
+                Method method = swaggerRule.getClass().getMethod("getName");
+
+                String ruleName = (String) method.invoke(swaggerRule);
+
+                if (ignoreRules == null || !ignoreRules.contains(ruleName)){
+                    swaggerRules.add((SwaggerRule) swaggerRule);
+                }
+
+            }
+
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
 
         return swaggerRules;
 

@@ -19,7 +19,9 @@ import java.util.stream.Collectors;
 
 public class Utils {
 
-    public static void executeValidation(Path pathBaseDir){
+    public static String SUFIX_FILE_NAME = "ReportValidation";
+
+    public static void executeValidation(Path pathBaseDir, ArrayList<String> ignoreRules){
 
         try {
 
@@ -34,7 +36,7 @@ public class Utils {
 
             for (Path path : javaFiles) {
 
-                if (!path.toString().contains("target")) {
+                if (!path.toString().contains("target") && !path.toString().contains(SUFIX_FILE_NAME)) {
 
                     ArrayList<SwaggerRuleFailure> swaggerRuleFailures = new ArrayList<>();
 
@@ -42,7 +44,7 @@ public class Utils {
 
                     Swagger swagger = swaggerParser.read(path.toString());
 
-                    for (SwaggerRule swaggerRule : FactoryRules.getRules()){
+                    for (SwaggerRule swaggerRule : FactoryRules.getRules(ignoreRules)){
                         swaggerRuleFailures.addAll(swaggerRule.execute(swagger));
                     }
 
@@ -70,9 +72,17 @@ public class Utils {
 
         try {
 
+            String nameFile = pathTosave + File.separator + fileName + SUFIX_FILE_NAME + ".json";
+
+            File file = new File(nameFile);
+
+            if (file.exists()){
+                file.delete();
+            }
+
             byte data[] = json.getBytes();
 
-            FileOutputStream out = new FileOutputStream(pathTosave + File.separator + fileName + "Validation" + ".json");
+            FileOutputStream out = new FileOutputStream(file);
 
             out.write(data);
 

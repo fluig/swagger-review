@@ -7,6 +7,7 @@ import io.swagger.models.Swagger;
 import java.util.List;
 
 public interface SwaggerRule {
+
     String getName();
     String getDescription();
     SwaggerRuleType getType();
