@@ -1,5 +1,6 @@
 package com.api.rules;
 
+import com.api.factory.EnumRule;
 import com.api.factory.SwaggerRuleFailure;
 import com.api.factory.SwaggerRuleType;
 import io.swagger.models.HttpMethod;
@@ -12,24 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public final class EnsurePathParam404ResponseRule implements SwaggerRule {
+public final class EnsurePathParam404ResponseRule extends SwaggerRule {
 
-    private static final String RULENAME = "RULE0003";
-    private static final String MESSAGE = "O path da api %s possui um placeholder que identifica uma entidade e portanto deve mapear o código de erro 404.";
-
-    @Override
-    public String getName() {
-        return RULENAME;
-    }
-
-    @Override
-    public SwaggerRuleType getType() {
-        return SwaggerRuleType.ERROR;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Paths que identificam uma entidade pelo id/code devem retornar 404.";
+    public EnsurePathParam404ResponseRule() {
+        super(EnumRule.RULE0004);
     }
 
     @Override
@@ -51,8 +38,8 @@ public final class EnsurePathParam404ResponseRule implements SwaggerRule {
 
                         SwaggerRuleFailure failure = new SwaggerRuleFailure(
                                 getName(),
-                                String.format(MESSAGE, operationEntry.getKey().name() + " " + pathEntry.getKey()),
-                                getType()
+                                String.format(getMessage(), operationEntry.getKey().name() + " " + pathEntry.getKey()),
+                                getSwaggerRuleType()
                         );
 
                         failures.add(failure);
