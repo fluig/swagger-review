@@ -38,7 +38,19 @@ public enum EnumRule {
 
     RULE0011("O path %s com o operationID %s não é único.",
             "Cada operação deve ter um operationID único.",
-            SwaggerRuleType.ERROR);
+            SwaggerRuleType.ERROR),
+
+    RULE0012("O path %s retorna uma collection, mas não permite a operação de ordenação.",
+            "APIs que retornam collections devem permitir ordenação.",
+            SwaggerRuleType.WARNING),
+
+    RULE0013("O path %s retorna uma collection, mas não permite a operação de filtro.",
+            "APIs que retornam collections devem permitir filtros.",
+            SwaggerRuleType.WARNING),
+
+    RULE0014("O path %s retorna uma collection, mas não permite a operação de paginação.",
+            "APIs que retornam collections devem permitir paginação.",
+            SwaggerRuleType.WARNING);
 
     private final String mMessage;
 
