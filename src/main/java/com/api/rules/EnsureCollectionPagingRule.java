@@ -20,6 +20,34 @@ public final class EnsureCollectionPagingRule extends SwaggerRule {
 
     @Override
     public List<SwaggerRuleFailure> execute(Swagger swagger) {
-        return null;
+
+        final String expectedQueryParam = "page";
+
+        List<String> collectionNames = SwaggerUtils.getAllCollectionNames(swagger);
+
+        ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
+
+        for (Map.Entry<String, Path> pathEntry : swagger.getPaths().entrySet()) {
+
+            for (Map.Entry<HttpMethod, Operation> operationEntry : pathEntry.getValue().getOperationMap().entrySet()) {
+
+                if (SwaggerUtils.operationReturnsCollection(operationEntry, collectionNames)) {
+
+                    if (!SwaggerUtils.operationHasQueryParameter(operationEntry, expectedQueryParam)) {
+                        SwaggerRuleFailure failure = new SwaggerRuleFailure(
+                                getName(),
+                                String.format(getMessage(), operationEntry.getKey().name() + " " + pathEntry.getKey()),
+                                getSwaggerRuleType()
+                        );
+
+                        failures.add(failure);
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        return failures;
     }
 }
