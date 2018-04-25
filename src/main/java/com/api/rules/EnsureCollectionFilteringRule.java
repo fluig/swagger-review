@@ -9,6 +9,7 @@ import java.util.List;
 public final class EnsureCollectionFilteringRule implements SwaggerRule {
 
     private static final String RULENAME = "RULE0013";
+    private static final String MESSAGE = "O path %s retorna uma collection, mas não permite a operação de filtro.";
 
     @Override
     public String getName() {

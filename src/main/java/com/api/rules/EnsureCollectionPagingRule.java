@@ -9,6 +9,7 @@ import java.util.List;
 public final class EnsureCollectionPagingRule implements SwaggerRule {
 
     private static final String RULENAME = "RULE0014";
+    private static final String MESSAGE = "O path %s retorna uma collection, mas não permite a operação de paginação.";
 
     @Override
     public String getName() {

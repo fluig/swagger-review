@@ -9,6 +9,7 @@ import java.util.List;
 public final class EnsureCollectionSortingRule implements SwaggerRule {
 
     private static final String RULENAME = "RULE0012";
+    private static final String MESSAGE = "O path %s retorna uma collection, mas não permite a operação de ordenação.";
 
     @Override
     public String getName() {
