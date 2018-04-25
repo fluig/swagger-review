@@ -1,7 +1,7 @@
 package com.api.rules;
 
+import com.api.factory.EnumRule;
 import com.api.factory.SwaggerRuleFailure;
-import com.api.factory.SwaggerRuleType;
 import io.swagger.models.HttpMethod;
 import io.swagger.models.Operation;
 import io.swagger.models.Path;
@@ -12,23 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public final class EnsureOperationIdRule implements SwaggerRule {
-    private static final String RULENAME = "RULE0010";
-    private static final String MESSAGE = "O path %s não define um operationID";
+public final class EnsureOperationIdRule extends SwaggerRule {
 
-    @Override
-    public String getName() {
-        return RULENAME;
-    }
-
-    @Override
-    public SwaggerRuleType getType() {
-        return SwaggerRuleType.ERROR;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Todas as operações devem definir um operationID.";
+    public EnsureOperationIdRule() {
+        super(EnumRule.RULE0010);
     }
 
     @Override
@@ -41,8 +28,8 @@ public final class EnsureOperationIdRule implements SwaggerRule {
                 if (StringUtils.isEmpty(entryOperation.getValue().getOperationId())) {
                     SwaggerRuleFailure failure = new SwaggerRuleFailure(
                         getName(),
-                        String.format(MESSAGE, entryOperation.getKey().name() + " " + entryPath.getKey()),
-                        getType()
+                        String.format(getMessage(), entryOperation.getKey().name() + " " + entryPath.getKey()),
+                        getSwaggerRuleType()
                     );
                     failures.add(failure);
                }
