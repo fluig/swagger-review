@@ -17,7 +17,7 @@ public final class EnsureCollectionSortingRule implements SwaggerRule {
 
     @Override
     public SwaggerRuleType getType() {
-        return null;
+        return SwaggerRuleType.WARNING;
     }
 
     @Override
