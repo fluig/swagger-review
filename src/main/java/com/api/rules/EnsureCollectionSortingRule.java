@@ -1,8 +1,8 @@
 package com.api.rules;
 
 import com.api.SwaggerUtils;
+import com.api.factory.EnumRule;
 import com.api.factory.SwaggerRuleFailure;
-import com.api.factory.SwaggerRuleType;
 import io.swagger.models.HttpMethod;
 import io.swagger.models.Operation;
 import io.swagger.models.Path;
@@ -12,24 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public final class EnsureCollectionSortingRule implements SwaggerRule {
+public final class EnsureCollectionSortingRule extends SwaggerRule {
 
-    private static final String RULENAME = "RULE0012";
-    private static final String MESSAGE = "O path %s retorna uma collection, mas não permite a operação de ordenação.";
-
-    @Override
-    public String getName() {
-        return RULENAME;
-    }
-
-    @Override
-    public SwaggerRuleType getType() {
-        return SwaggerRuleType.WARNING;
-    }
-
-    @Override
-    public String getDescription() {
-        return "APIs que retornam collections devem permitir ordenação.";
+    public EnsureCollectionSortingRule(EnumRule enumRule) {
+        super(EnumRule.RULE0012);
     }
 
     @Override
@@ -50,8 +36,8 @@ public final class EnsureCollectionSortingRule implements SwaggerRule {
                     if (!SwaggerUtils.operationHasQueryParameter(operationEntry, expectedQueryParam)) {
                         SwaggerRuleFailure failure = new SwaggerRuleFailure(
                                 getName(),
-                                String.format(MESSAGE, operationEntry.getKey().name() + " " + pathEntry.getKey()),
-                                getType()
+                                String.format(getMessage(), operationEntry.getKey().name() + " " + pathEntry.getKey()),
+                                getSwaggerRuleType()
                         );
 
                         failures.add(failure);
@@ -61,7 +47,6 @@ public final class EnsureCollectionSortingRule implements SwaggerRule {
                 }
             }
         }
-
 
         return failures;
     }
