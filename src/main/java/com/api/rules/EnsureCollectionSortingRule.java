@@ -8,9 +8,11 @@ import java.util.List;
 
 public final class EnsureCollectionSortingRule implements SwaggerRule {
 
+    private static final String RULENAME = "RULE0012";
+
     @Override
     public String getName() {
-        return null;
+        return RULENAME;
     }
 
     @Override
