@@ -23,7 +23,7 @@ public final class EnsureCollectionSortingRule implements SwaggerRule {
 
     @Override
     public String getDescription() {
-        return null;
+        return "APIs que retornam collections devem permitir ordenação.";
     }
 
     @Override

@@ -23,7 +23,7 @@ public final class EnsureCollectionFilteringRule implements SwaggerRule {
 
     @Override
     public String getDescription() {
-        return null;
+        return "APIs que retornam collections devem permitir filtros.";
     }
 
     @Override
