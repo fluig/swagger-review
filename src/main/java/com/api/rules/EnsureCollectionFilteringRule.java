@@ -14,12 +14,12 @@ import java.util.Map;
 
 public final class EnsureCollectionFilteringRule extends SwaggerRule {
 
-    public EnsureCollectionFilteringRule(EnumRule enumRule) {
+    public EnsureCollectionFilteringRule() {
         super(EnumRule.RULE0013);
     }
 
     @Override
-    public List<SwaggerRuleFailure> execute(Swagger swagger) {
+    public List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception {
 
         final String expectedQueryParam = "fields";
 

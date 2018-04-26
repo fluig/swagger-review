@@ -20,7 +20,7 @@ public final class EnsurePathParam404ResponseRule extends SwaggerRule {
     }
 
     @Override
-    public List<SwaggerRuleFailure> execute(Swagger swagger) {
+    public List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception {
 
         final String expectedParameterLocation = "path";
         final String expectedResponseCode = "404";

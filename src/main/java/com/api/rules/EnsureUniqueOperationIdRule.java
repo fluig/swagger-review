@@ -21,7 +21,7 @@ public final class EnsureUniqueOperationIdRule extends SwaggerRule {
     }
 
     @Override
-    public List<SwaggerRuleFailure> execute(Swagger swagger) {
+    public List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception {
 
         Set<String> uniqueOperationIds = new HashSet<>();
 

@@ -20,7 +20,7 @@ public final class EnsureResponse201WithJsonFromPostRule extends SwaggerRule {
     }
 
     @Override
-    public List<SwaggerRuleFailure> execute(Swagger swagger) {
+    public List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception {
 
         ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
 

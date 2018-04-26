@@ -14,12 +14,12 @@ import java.util.Map;
 
 public final class EnsureCollectionSortingRule extends SwaggerRule {
 
-    public EnsureCollectionSortingRule(EnumRule enumRule) {
+    public EnsureCollectionSortingRule() {
         super(EnumRule.RULE0012);
     }
 
     @Override
-    public List<SwaggerRuleFailure> execute(Swagger swagger) {
+    public List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception {
 
         final String expectedQueryParam = "order";
 

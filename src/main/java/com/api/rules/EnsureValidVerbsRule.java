@@ -16,7 +16,7 @@ public final class EnsureValidVerbsRule extends SwaggerRule {
     }
 
     @Override
-    public List<SwaggerRuleFailure> execute(Swagger swagger) {
+    public List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception {
 
         ArrayList<String> methodNames = new ArrayList<>();
 
