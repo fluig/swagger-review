@@ -31,6 +31,6 @@ public abstract class SwaggerRule {
         return mEnumRule.getSwaggerRuleType();
     }
 
-    public abstract List<SwaggerRuleFailure> execute(Swagger swagger);
+    public abstract List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception;
 
 }

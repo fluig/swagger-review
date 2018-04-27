@@ -14,12 +14,12 @@ import java.util.Map;
 
 public final class EnsureCollectionPagingRule extends SwaggerRule {
 
-    public EnsureCollectionPagingRule(EnumRule enumRule) {
+    public EnsureCollectionPagingRule() {
         super(EnumRule.RULE0014);
     }
 
     @Override
-    public List<SwaggerRuleFailure> execute(Swagger swagger) {
+    public List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception {
 
         final String expectedQueryParam = "page";
 

@@ -13,7 +13,8 @@ import java.util.Map;
 
 public class SwaggerUtils {
 
-    private SwaggerUtils() {}
+    private SwaggerUtils() {
+    }
 
     //region Collection Responses
     public static List<String> getAllCollectionNames(Swagger swagger) {
@@ -36,14 +37,19 @@ public class SwaggerUtils {
                                                      List<String> collections) {
         for (Map.Entry<String, Response> responseEntry : operationEntry.getValue().getResponses().entrySet()) {
 
-            String reference = responseEntry.getValue().getResponseSchema().getReference().
-                    replace("#/definitions/", "");
+            if (responseEntry.getValue().getResponseSchema() != null && responseEntry.getValue().getResponseSchema().getReference() != null) {
 
-            for (String collection: collections) {
-                if (reference.equals(collection)) {
-                    return true;
+                String reference = responseEntry.getValue().getResponseSchema().getReference().
+                        replace("#/definitions/", "");
+
+                for (String collection : collections) {
+                    if (reference.equals(collection)) {
+                        return true;
+                    }
                 }
+
             }
+
         }
 
         return false;
@@ -58,7 +64,7 @@ public class SwaggerUtils {
         for (Parameter parameter : operationEntry.getValue().getParameters()) {
 
             if (parameter.getName().equals(parameterName) &&
-                parameter.getIn().equals(parameterType)) {
+                    parameter.getIn().equals(parameterType)) {
                 return true;
             }
         }

@@ -45,7 +45,13 @@ public class Utils {
                     Swagger swagger = swaggerParser.read(path.toString());
 
                     for (SwaggerRule swaggerRule : FactoryRules.getRules(ignoreRules)){
-                        swaggerRuleFailures.addAll(swaggerRule.execute(swagger));
+
+                        try{
+                            swaggerRuleFailures.addAll(swaggerRule.execute(swagger));
+                        } catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+
                     }
 
                     if (swaggerRuleFailures.size() > 0){

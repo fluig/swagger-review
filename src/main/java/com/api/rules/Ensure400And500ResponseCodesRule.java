@@ -21,7 +21,7 @@ public final class Ensure400And500ResponseCodesRule extends SwaggerRule {
     }
 
     @Override
-    public List<SwaggerRuleFailure> execute(Swagger swagger) {
+    public List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception {
 
         List<String> expectedResponses = Arrays.asList("400", "500");
 
