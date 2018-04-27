@@ -14,7 +14,13 @@ public class MainTest {
 
         Path path = Paths.get(System.getProperty("user.dir"));
 
-        Utils.executeValidation(path, ignoreList);
+        ArrayList<String> pathsToIgnore = new ArrayList<>();
+
+        pathsToIgnore.add("target");
+
+        pathsToIgnore.add(Utils.SUFIX_FILE_NAME);
+
+        Utils.executeValidation(path, pathsToIgnore, ignoreList);
 
     }
 
