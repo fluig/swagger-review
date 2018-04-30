@@ -56,8 +56,8 @@ public enum EnumRule {
             "APIs que retornam collections devem permitir paginação.",
             SwaggerRuleType.WARNING),
 
-    RULE0015("O path %s possui uma tag que possui 'service' no nome.",
-            "Tags não devem conter 'service' no nome.",
+    RULE0015("O path %s possui uma tag que possui Service no nome.",
+            "Tags não devem conter Service no nome.",
             SwaggerRuleType.WARNING);
 
     private final String mMessage;
