@@ -23,7 +23,11 @@ public class MojoExecution extends AbstractMojo {
 
         System.out.println("IGNORE: " + ignoreRules);
 
-        Utils.executeValidation(project.getBasedir().toPath(), ignoreRules);
+        ArrayList<String> pathsToIgnore = new ArrayList<>();
+
+        pathsToIgnore.add(Utils.SUFIX_FILE_NAME);
+
+        Utils.executeValidation(project.getBasedir().toPath(), pathsToIgnore, ignoreRules);
     }
 
 }

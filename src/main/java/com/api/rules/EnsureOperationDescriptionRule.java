@@ -1,7 +1,7 @@
 package com.api.rules;
 
+import com.api.factory.EnumRule;
 import com.api.factory.SwaggerRuleFailure;
-import com.api.factory.SwaggerRuleType;
 import io.swagger.models.HttpMethod;
 import io.swagger.models.Operation;
 import io.swagger.models.Path;
@@ -12,28 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public final class EnsureOperationDescriptionRule implements SwaggerRule {
+public final class EnsureOperationDescriptionRule extends SwaggerRule {
 
-    private static final String RULENAME = "RULE0009";
-    private static final String MESSAGE = "O path %s não contém uma descrição.";
-
-    @Override
-    public String getName() {
-        return RULENAME;
+    public EnsureOperationDescriptionRule() {
+        super(EnumRule.RULE0009);
     }
 
     @Override
-    public SwaggerRuleType getType() {
-        return SwaggerRuleType.ERROR;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Todas as operações devem ter uma descrição.";
-    }
-
-    @Override
-    public List<SwaggerRuleFailure> execute(Swagger swagger) {
+    public List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception {
 
         ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
 
@@ -44,8 +30,8 @@ public final class EnsureOperationDescriptionRule implements SwaggerRule {
                 if (StringUtils.isEmpty(operationEntry.getValue().getDescription())) {
                     SwaggerRuleFailure failure = new SwaggerRuleFailure(
                             getName(),
-                            String.format(MESSAGE, operationEntry.getKey().name() + " " + pathEntry.getKey()),
-                            getType()
+                            String.format(getMessage(), operationEntry.getKey().name() + " " + pathEntry.getKey()),
+                            getSwaggerRuleType()
                     );
 
                     failures.add(failure);

@@ -1,29 +1,29 @@
 package com.api.rules;
 
+import com.api.SwaggerUtils;
 import com.api.factory.EnumRule;
 import com.api.factory.SwaggerRuleFailure;
-import com.api.factory.SwaggerRuleType;
 import io.swagger.models.HttpMethod;
 import io.swagger.models.Operation;
 import io.swagger.models.Path;
 import io.swagger.models.Swagger;
-import io.swagger.models.parameters.Parameter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public final class EnsurePathParam404ResponseRule extends SwaggerRule {
+public final class EnsureCollectionSortingRule extends SwaggerRule {
 
-    public EnsurePathParam404ResponseRule() {
-        super(EnumRule.RULE0004);
+    public EnsureCollectionSortingRule() {
+        super(EnumRule.RULE0012);
     }
 
     @Override
     public List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception {
 
-        final String expectedParameterLocation = "path";
-        final String expectedResponseCode = "404";
+        final String expectedQueryParam = "order";
+
+        List<String> collectionNames = SwaggerUtils.getAllCollectionNames(swagger);
 
         ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
 
@@ -31,11 +31,9 @@ public final class EnsurePathParam404ResponseRule extends SwaggerRule {
 
             for (Map.Entry<HttpMethod, Operation> operationEntry : pathEntry.getValue().getOperationMap().entrySet()) {
 
-                for (Parameter parameter : operationEntry.getValue().getParameters()) {
+                if (SwaggerUtils.operationReturnsCollection(operationEntry, collectionNames)) {
 
-                    if (parameter.getIn().equals(expectedParameterLocation) &&
-                            !operationEntry.getValue().getResponses().containsKey(expectedResponseCode)) {
-
+                    if (!SwaggerUtils.operationHasQueryParameter(operationEntry, expectedQueryParam)) {
                         SwaggerRuleFailure failure = new SwaggerRuleFailure(
                                 getName(),
                                 String.format(getMessage(), operationEntry.getKey().name() + " " + pathEntry.getKey()),

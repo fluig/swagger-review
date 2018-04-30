@@ -21,7 +21,7 @@ public class Utils {
 
     public static String SUFIX_FILE_NAME = "ReportValidation";
 
-    public static void executeValidation(Path pathBaseDir, ArrayList<String> ignoreRules){
+    public static void executeValidation(Path pathBaseDir, ArrayList<String> pathsToIgnore, ArrayList<String> ignoreRules){
 
         try {
 
@@ -36,7 +36,7 @@ public class Utils {
 
             for (Path path : javaFiles) {
 
-                if (!path.toString().contains("target") && !path.toString().contains(SUFIX_FILE_NAME)) {
+                if (!pathsToIgnore.contains(path.toString())){
 
                     ArrayList<SwaggerRuleFailure> swaggerRuleFailures = new ArrayList<>();
 
@@ -45,7 +45,13 @@ public class Utils {
                     Swagger swagger = swaggerParser.read(path.toString());
 
                     for (SwaggerRule swaggerRule : FactoryRules.getRules(ignoreRules)){
-                        swaggerRuleFailures.addAll(swaggerRule.execute(swagger));
+
+                        try{
+                            swaggerRuleFailures.addAll(swaggerRule.execute(swagger));
+                        } catch (Exception ex){
+                            ex.printStackTrace();
+                        }
+
                     }
 
                     if (swaggerRuleFailures.size() > 0){
@@ -93,7 +99,4 @@ public class Utils {
         }
 
     }
-
-
-
 }

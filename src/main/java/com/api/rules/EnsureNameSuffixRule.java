@@ -1,7 +1,7 @@
 package com.api.rules;
 
+import com.api.factory.EnumRule;
 import com.api.factory.SwaggerRuleFailure;
-import com.api.factory.SwaggerRuleType;
 import io.swagger.models.Model;
 import io.swagger.models.Swagger;
 
@@ -9,28 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public final class EnsureNameSuffixRule implements SwaggerRule {
+public final class EnsureNameSuffixRule extends SwaggerRule {
 
-    private static final String RULENAME = "RULE0006";
-    private static final String MESSAGE = "A entidade de retorno %s não deve conter os sufixos: DTO, VO.";
-
-    @Override
-    public String getName() {
-        return RULENAME;
+    public EnsureNameSuffixRule() {
+        super(EnumRule.RULE0006);
     }
 
     @Override
-    public SwaggerRuleType getType() {
-        return SwaggerRuleType.ERROR;
-    }
-
-    @Override
-    public String getDescription() {
-        return "As entidades de retorno não podem conter os sufixos DTO ou VO.";
-    }
-
-    @Override
-    public List<SwaggerRuleFailure> execute(Swagger swagger) {
+    public List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception {
 
         ArrayList<String> entitySuffixes = new ArrayList<>();
         entitySuffixes.add("DTO");
@@ -45,8 +31,8 @@ public final class EnsureNameSuffixRule implements SwaggerRule {
                 if (modelEntry.getKey().endsWith(suffix)) {
                     failures.add(new SwaggerRuleFailure(
                             getName(),
-                            String.format(MESSAGE, modelEntry.getKey()),
-                            getType()
+                            String.format(getMessage(), modelEntry.getKey()),
+                            getSwaggerRuleType()
                     ));
 
                     break;

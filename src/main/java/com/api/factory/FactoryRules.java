@@ -30,7 +30,7 @@ public class FactoryRules {
 
                 Object swaggerRule = classVerification.newInstance();
 
-                Method method = swaggerRule.getClass().getMethod("getName");
+                Method method = swaggerRule.getClass().getSuperclass().getDeclaredMethod("getName");
 
                 String ruleName = (String) method.invoke(swaggerRule);
 
