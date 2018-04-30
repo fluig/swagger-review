@@ -28,7 +28,7 @@ public enum EnumRule {
             "As entidades de retorno não podem conter os sufixos DTO ou VO.",
             SwaggerRuleType.ERROR),
 
-    RULE0007("O path %s usa o método %s e portanto, não deve ser utilizado corpo na mensagem",
+    RULE0008("O path %s usa o método %s e portanto, não deve ser utilizado corpo na mensagem",
             "Métodos DELETE, GET, HEAD e OPTIONS não deve ser utilizado corpo na mensagem e sim utilizar query string.",
             SwaggerRuleType.ERROR),
 
@@ -54,6 +54,10 @@ public enum EnumRule {
 
     RULE0014("O path %s retorna uma collection, mas não permite a operação de paginação.",
             "APIs que retornam collections devem permitir paginação.",
+            SwaggerRuleType.WARNING),
+
+    RULE0015("O path %s possui uma tag que possui Service no nome.",
+            "Tags não devem conter Service no nome.",
             SwaggerRuleType.WARNING);
 
     private final String mMessage;

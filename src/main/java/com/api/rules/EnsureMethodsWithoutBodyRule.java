@@ -14,7 +14,7 @@ import java.util.Map;
 public final class EnsureMethodsWithoutBodyRule extends SwaggerRule {
 
     public EnsureMethodsWithoutBodyRule() {
-        super(EnumRule.RULE0007);
+        super(EnumRule.RULE0008);
     }
 
     @Override
