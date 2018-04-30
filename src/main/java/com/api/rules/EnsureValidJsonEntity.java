@@ -1,5 +1,6 @@
 package com.api.rules;
 
+import com.api.factory.EnumRule;
 import com.api.factory.SwaggerRuleFailure;
 import com.api.factory.SwaggerRuleType;
 import io.swagger.models.HttpMethod;
@@ -13,24 +14,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public final class EnsureValidJsonEntity implements SwaggerRule {
+public final class EnsureValidJsonEntity extends SwaggerRule {
 
-    private static final String RULENAME = "RULE0007";
-    private static final String MESSAGE = "O path %s retorna um valor primitivo ao invés de uma JSON válido.";
-
-    @Override
-    public String getName() {
-        return RULENAME;
-    }
-
-    @Override
-    public SwaggerRuleType getType() {
-        return SwaggerRuleType.ERROR;
-    }
-
-    @Override
-    public String getDescription() {
-        return "As entidades de retorno das APIs deve ser um JSON válido e não um valor primitivo.";
+    public EnsureValidJsonEntity() {
+        super(EnumRule.RULE0007);
     }
 
     @Override
@@ -60,8 +47,8 @@ public final class EnsureValidJsonEntity implements SwaggerRule {
                     if (responseEntry.getValue().getResponseSchema() == null) {
                         SwaggerRuleFailure failure = new SwaggerRuleFailure(
                                 getName(),
-                                String.format(MESSAGE, operationEntry.getKey().name() + " " + pathEntry.getKey()),
-                                getType()
+                                String.format(getMessage(), operationEntry.getKey().name() + " " + pathEntry.getKey()),
+                                getSwaggerRuleType()
                         );
 
                         failures.add(failure);

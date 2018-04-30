@@ -1,7 +1,5 @@
 package com.api.factory;
 
-import com.api.factory.SwaggerRuleType;
-
 public enum EnumRule {
 
     RULE0001("O documento swagger %s não está configurado para suportar http e https",
@@ -28,8 +26,8 @@ public enum EnumRule {
             "As entidades de retorno não podem conter os sufixos DTO ou VO.",
             SwaggerRuleType.ERROR),
 
-    RULE0007("O path %s usa o método %s e portanto, não deve ser utilizado corpo na mensagem",
-            "Métodos DELETE, GET, HEAD e OPTIONS não deve ser utilizado corpo na mensagem e sim utilizar query string.",
+    RULE0007("O path %s retorna um valor primitivo ao invés de uma JSON válido.",
+            "As entidades de retorno das APIs deve ser um JSON válido e não um valor primitivo.",
             SwaggerRuleType.ERROR),
 
     RULE0009("O path %s não contém uma descrição.",
