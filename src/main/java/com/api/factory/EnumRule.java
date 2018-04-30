@@ -28,6 +28,10 @@ public enum EnumRule {
             "As entidades de retorno não podem conter os sufixos DTO ou VO.",
             SwaggerRuleType.ERROR),
 
+    RULE0007("O path %s usa o método %s e portanto, não deve ser utilizado corpo na mensagem",
+            "Métodos DELETE, GET, HEAD e OPTIONS não deve ser utilizado corpo na mensagem e sim utilizar query string.",
+            SwaggerRuleType.ERROR),
+
     RULE0009("O path %s não contém uma descrição.",
             "Todas as operações devem ter uma descrição.",
             SwaggerRuleType.ERROR),
