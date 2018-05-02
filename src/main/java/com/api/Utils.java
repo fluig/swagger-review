@@ -21,7 +21,7 @@ public class Utils {
 
     public static String SUFIX_FILE_NAME = "ReportValidation";
 
-    public static void executeValidation(Path pathBaseDir, ArrayList<String> pathsToIgnore, ArrayList<String> ignoreRules){
+    public static void executeValidation(Path pathBaseDir, ArrayList<String> pathsToIgnore, ArrayList<String> ignoreRules) {
 
         try {
 
@@ -36,33 +36,37 @@ public class Utils {
 
             for (Path path : javaFiles) {
 
-                if (!pathsToIgnore.contains(path.toString())){
+                for (String ignorePath : pathsToIgnore) {
 
-                    ArrayList<SwaggerRuleFailure> swaggerRuleFailures = new ArrayList<>();
-
-                    SwaggerParser swaggerParser = new SwaggerParser();
-
-                    Swagger swagger = swaggerParser.read(path.toString());
-
-                    for (SwaggerRule swaggerRule : FactoryRules.getRules(ignoreRules)){
-
-                        try{
-                            swaggerRuleFailures.addAll(swaggerRule.execute(swagger));
-                        } catch (Exception ex){
-                            ex.printStackTrace();
-                        }
-
+                    if (path.toString().contains(ignorePath)) {
+                        return;
                     }
 
-                    if (swaggerRuleFailures.size() > 0){
+                }
 
-                        Gson gson = new Gson();
+                ArrayList<SwaggerRuleFailure> swaggerRuleFailures = new ArrayList<>();
 
-                        String json = gson.toJson(swaggerRuleFailures);
+                SwaggerParser swaggerParser = new SwaggerParser();
 
-                        Utils.saveFile(path.toString().substring(0, path.toString().lastIndexOf(File.separator)), swagger.getInfo().getTitle(), json);
+                Swagger swagger = swaggerParser.read(path.toString());
 
+                for (SwaggerRule swaggerRule : FactoryRules.getRules(ignoreRules)) {
+
+                    try {
+                        swaggerRuleFailures.addAll(swaggerRule.execute(swagger));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
                     }
+
+                }
+
+                if (swaggerRuleFailures.size() > 0) {
+
+                    Gson gson = new Gson();
+
+                    String json = gson.toJson(swaggerRuleFailures);
+
+                    Utils.saveFile(path.toString().substring(0, path.toString().lastIndexOf(File.separator)), swagger.getInfo().getTitle(), json);
 
                 }
 
@@ -74,7 +78,7 @@ public class Utils {
 
     }
 
-    public static void saveFile(String pathTosave, String fileName, String json){
+    public static void saveFile(String pathTosave, String fileName, String json) {
 
         try {
 
@@ -82,7 +86,7 @@ public class Utils {
 
             File file = new File(nameFile);
 
-            if (file.exists()){
+            if (file.exists()) {
                 file.delete();
             }
 
