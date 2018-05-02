@@ -36,37 +36,43 @@ public class Utils {
 
             for (Path path : javaFiles) {
 
+                boolean isValid = true;
+
                 for (String ignorePath : pathsToIgnore) {
 
                     if (path.toString().contains(ignorePath)) {
-                        return;
+                        isValid = false;
                     }
 
                 }
 
-                ArrayList<SwaggerRuleFailure> swaggerRuleFailures = new ArrayList<>();
+                if (isValid) {
 
-                SwaggerParser swaggerParser = new SwaggerParser();
+                    ArrayList<SwaggerRuleFailure> swaggerRuleFailures = new ArrayList<>();
 
-                Swagger swagger = swaggerParser.read(path.toString());
+                    SwaggerParser swaggerParser = new SwaggerParser();
 
-                for (SwaggerRule swaggerRule : FactoryRules.getRules(ignoreRules)) {
+                    Swagger swagger = swaggerParser.read(path.toString());
 
-                    try {
-                        swaggerRuleFailures.addAll(swaggerRule.execute(swagger));
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                    for (SwaggerRule swaggerRule : FactoryRules.getRules(ignoreRules)) {
+
+                        try {
+                            swaggerRuleFailures.addAll(swaggerRule.execute(swagger));
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+
                     }
 
-                }
+                    if (swaggerRuleFailures.size() > 0) {
 
-                if (swaggerRuleFailures.size() > 0) {
+                        Gson gson = new Gson();
 
-                    Gson gson = new Gson();
+                        String json = gson.toJson(swaggerRuleFailures);
 
-                    String json = gson.toJson(swaggerRuleFailures);
+                        Utils.saveFile(path.toString().substring(0, path.toString().lastIndexOf(File.separator)), swagger.getInfo().getTitle(), json);
 
-                    Utils.saveFile(path.toString().substring(0, path.toString().lastIndexOf(File.separator)), swagger.getInfo().getTitle(), json);
+                    }
 
                 }
 
