@@ -60,8 +60,8 @@ public enum EnumRule {
             "Tags não devem conter Service no nome.",
             SwaggerRuleType.WARNING),
 
-    RULE0016("O path %s possui query params que não obedecem a prática CamelCase.",
-            "Query params devem estar no padrão CamelCase.",
+    RULE0016("O path %s possui query params que não obedecem a prática camelCase.",
+            "Query params devem estar no padrão camelCase.",
             SwaggerRuleType.ERROR);
 
     private final String mMessage;
