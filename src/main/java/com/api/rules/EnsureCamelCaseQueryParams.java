@@ -24,7 +24,7 @@ public final class EnsureCamelCaseQueryParams extends SwaggerRule {
     public List<SwaggerRuleFailure> execute(Swagger swagger) {
 
         final String expectedParameterType = "query";
-        final String camelCasePattern = "^[a-z]+([A-Z]([a-z0-9])+)*";
+        final String camelCasePattern = "^[a-z]+([A-Z]([a-zA-Z0-9])*)*";
 
         ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
 
