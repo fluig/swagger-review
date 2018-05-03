@@ -47,9 +47,7 @@ public class SwaggerUtils {
                         return true;
                     }
                 }
-
             }
-
         }
 
         return false;
