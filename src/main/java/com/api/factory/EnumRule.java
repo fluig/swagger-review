@@ -64,7 +64,13 @@ public enum EnumRule {
 
     RULE0016("O path %s possui query params que não obedecem a prática camelCase.",
             "Query params devem estar no padrão camelCase.",
-            SwaggerRuleType.ERROR);
+            SwaggerRuleType.ERROR),
+
+    RULE0017("O path %s retorna uma collection, mas seu nome está no singular.",
+            "APIs que retornam collections devem estar no plural.",
+            SwaggerRuleType.WARNING)
+
+    ;
 
     private final String mMessage;
 

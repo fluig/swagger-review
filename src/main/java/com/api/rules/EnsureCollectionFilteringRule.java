@@ -23,7 +23,7 @@ public final class EnsureCollectionFilteringRule extends SwaggerRule {
 
         final String expectedQueryParam = "fields";
 
-        List<String> collectionNames = SwaggerUtils.getAllCollectionNames(swagger);
+        final List<String> collectionNames = SwaggerUtils.getAllCollectionNames(swagger);
 
         ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
 
