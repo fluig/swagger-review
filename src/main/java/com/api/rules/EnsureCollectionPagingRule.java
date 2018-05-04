@@ -23,7 +23,7 @@ public final class EnsureCollectionPagingRule extends SwaggerRule {
 
         final String expectedQueryParam = "page";
 
-        List<String> collectionNames = SwaggerUtils.getAllCollectionNames(swagger);
+        final List<String> collectionNames = SwaggerUtils.getAllCollectionNames(swagger);
 
         ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
 
