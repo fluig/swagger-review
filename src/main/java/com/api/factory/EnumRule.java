@@ -66,7 +66,7 @@ public enum EnumRule {
 
     RULE0017("O path %s retorna uma collection, mas seu nome está no singular.",
             "APIs que retornam collections devem estar no plural.",
-            SwaggerRuleType.ERROR)
+            SwaggerRuleType.WARNING)
 
     ;
 
