@@ -72,6 +72,10 @@ public enum EnumRule {
 
     RULE0018("O path %s não possui tags.",
             "Cada operação deve ter pelo menos uma tag.",
+            SwaggerRuleType.ERROR),
+
+    RULE0020("O path %s não retorna o tipo ErrorResponse para código de erro %s.",
+            "Todos os código de erros devem utilizar o tipo ErrorResponse.",
             SwaggerRuleType.ERROR)
 
     ;
