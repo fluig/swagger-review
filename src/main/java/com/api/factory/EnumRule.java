@@ -72,6 +72,10 @@ public enum EnumRule {
 
     RULE0018("O path %s não possui tags.",
             "Cada operação deve ter pelo menos uma tag.",
+            SwaggerRuleType.ERROR),
+
+    RULE0019("O path %s não possui um formato de retorno.",
+            "Todas as operações devem listar o formato de retorno.",
             SwaggerRuleType.ERROR)
 
     ;
