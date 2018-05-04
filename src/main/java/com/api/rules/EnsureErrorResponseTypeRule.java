@@ -21,6 +21,8 @@ public final class EnsureErrorResponseTypeRule extends SwaggerRule {
     @Override
     public List<SwaggerRuleFailure> execute(Swagger swagger) {
 
+        final String expectedResponseType = "ErrorResponse";
+
         ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
 
         for (Map.Entry<String, Path> pathEntry : swagger.getPaths().entrySet()) {
@@ -44,7 +46,7 @@ public final class EnsureErrorResponseTypeRule extends SwaggerRule {
                     final String reference = responseEntry.getValue().getResponseSchema().getReference().
                             replace("#/definitions/", "");
 
-                    if (!reference.equals("ErrorResponse")) {
+                    if (!reference.equals(expectedResponseType)) {
                         failures.add(getFailure(operationEntry.getKey().name(), pathEntry.getKey(), responseEntry.getKey()));
                     }
                 }
