@@ -14,9 +14,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class EnsureCamelCaseQueryParams extends SwaggerRule {
+public final class EnsureCamelCaseQueryParamsRule extends SwaggerRule {
 
-    public EnsureCamelCaseQueryParams() {
+    public EnsureCamelCaseQueryParamsRule() {
         super(EnumRule.RULE0016);
     }
 

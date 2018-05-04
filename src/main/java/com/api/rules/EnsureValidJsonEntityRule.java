@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public final class EnsureValidJsonEntity extends SwaggerRule {
+public final class EnsureValidJsonEntityRule extends SwaggerRule {
 
-    public EnsureValidJsonEntity() {
+    public EnsureValidJsonEntityRule() {
         super(EnumRule.RULE0007);
     }
 

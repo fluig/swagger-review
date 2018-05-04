@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public final class EnsureCollectionPathPluralName extends SwaggerRule {
+public final class EnsureCollectionPathPluralNameRule extends SwaggerRule {
 
-    public EnsureCollectionPathPluralName() {
+    public EnsureCollectionPathPluralNameRule() {
         super(EnumRule.RULE0017);
     }
 
