@@ -26,6 +26,10 @@ public final class EnsureTagNameRule extends SwaggerRule {
 
             for (Map.Entry<HttpMethod, Operation> operationEntry : pathEntry.getValue().getOperationMap().entrySet()) {
 
+                if (operationEntry.getValue().getTags() == null) {
+                    continue;
+                }
+
                 for (String tag : operationEntry.getValue().getTags()) {
 
                     if (tag.toUpperCase().contains("SERVICE")) {
