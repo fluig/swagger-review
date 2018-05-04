@@ -72,7 +72,7 @@ public enum EnumRule {
 
     RULE0018("O path %s não possui tags.",
             "Cada operação deve ter pelo menos uma tag.",
-            SwaggerRuleType.WARNING)
+            SwaggerRuleType.ERROR)
 
     ;
 
