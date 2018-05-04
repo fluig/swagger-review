@@ -16,6 +16,25 @@ public class SwaggerUtils {
     private SwaggerUtils() {
     }
 
+    public static String getLastNonParamResourceFromPath(String path) {
+        if (path == null || path.length() == 0) {
+            return null;
+        }
+
+        String[] resources = path.split("/");
+
+        for (int i = resources.length - 1; i > -1; --i) {
+            final String resource = resources[i];
+            if (resource.contains("{")) {
+                continue;
+            }
+
+            return resource;
+        }
+
+        return null;
+    }
+
     //region Collection Responses
     public static List<String> getAllCollectionNames(Swagger swagger) {
         ArrayList<String> collectionNames = new ArrayList<>();
