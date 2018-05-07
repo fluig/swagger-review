@@ -18,7 +18,9 @@ public final class EnsureOperationReturnFormatRule extends SwaggerRule {
     }
 
     @Override
-    public List<SwaggerRuleFailure> execute(Swagger swagger) throws Exception {
+    public List<SwaggerRuleFailure> execute(Swagger swagger) {
+
+        final String noContentHttpCode = "204";
 
         ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
 
@@ -26,7 +28,17 @@ public final class EnsureOperationReturnFormatRule extends SwaggerRule {
 
             for (Map.Entry<HttpMethod, Operation> operationEntry : pathEntry.getValue().getOperationMap().entrySet()) {
 
-                if (operationEntry.getValue().getProduces() == null || operationEntry.getValue().getProduces().size() < 1) {
+                if (operationEntry.getValue().getResponses().containsKey(noContentHttpCode)) {
+                    if (operationEntry.getValue().getProduces() != null) {
+                        failures.add(new SwaggerRuleFailure(
+                                getName(),
+                                String.format(getMessage(), operationEntry.getKey().name() + " " + pathEntry.getKey()),
+                                getSwaggerRuleType()
+                        ));
+                    }
+                } else if (operationEntry.getValue().getProduces() == null ||
+                            operationEntry.getValue().getProduces().size() < 1) {
+
                     failures.add(new SwaggerRuleFailure(
                             getName(),
                             String.format(getMessage(), operationEntry.getKey().name() + " " + pathEntry.getKey()),
