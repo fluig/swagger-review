@@ -59,12 +59,6 @@
             <version>0.9.11</version>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.atteo</groupId>-->
-            <!--<artifactId>evo-inflector</artifactId>-->
-            <!--<version>1.2.2</version>-->
-        <!--</dependency>-->
-
         <dependency>
             <groupId>org.jibx</groupId>
             <artifactId>jibx-tools</artifactId>
