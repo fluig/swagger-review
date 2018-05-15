@@ -11,6 +11,7 @@ public class MainTest {
         ArrayList<String> ignoreList = new ArrayList<>();
 
         ignoreList.add("RULE0001");
+        ignoreList.add("RULE0007");
 
         Path path = Paths.get(System.getProperty("user.dir"));
 

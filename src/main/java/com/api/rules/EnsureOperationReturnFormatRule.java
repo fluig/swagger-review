@@ -11,14 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public final class EnsureTagNameRule extends SwaggerRule {
+public final class EnsureOperationReturnFormatRule extends SwaggerRule {
 
-    public EnsureTagNameRule() {
-        super(EnumRule.RULE0015);
+    public EnsureOperationReturnFormatRule() {
+        super(EnumRule.RULE0019);
     }
 
     @Override
     public List<SwaggerRuleFailure> execute(Swagger swagger) {
+
+        final String noContentHttpCode = "204";
 
         ArrayList<SwaggerRuleFailure> failures = new ArrayList<>();
 
@@ -26,19 +28,22 @@ public final class EnsureTagNameRule extends SwaggerRule {
 
             for (Map.Entry<HttpMethod, Operation> operationEntry : pathEntry.getValue().getOperationMap().entrySet()) {
 
-                if (operationEntry.getValue().getTags() == null) {
-                    continue;
-                }
-
-                for (String tag : operationEntry.getValue().getTags()) {
-
-                    if (tag.toUpperCase().contains("SERVICE")) {
+                if (operationEntry.getValue().getResponses().containsKey(noContentHttpCode)) {
+                    if (operationEntry.getValue().getProduces() != null) {
                         failures.add(new SwaggerRuleFailure(
                                 getName(),
                                 String.format(getMessage(), operationEntry.getKey().name() + " " + pathEntry.getKey()),
                                 getSwaggerRuleType()
                         ));
                     }
+                } else if (operationEntry.getValue().getProduces() == null ||
+                            operationEntry.getValue().getProduces().size() < 1) {
+
+                    failures.add(new SwaggerRuleFailure(
+                            getName(),
+                            String.format(getMessage(), operationEntry.getKey().name() + " " + pathEntry.getKey()),
+                            getSwaggerRuleType()
+                    ));
                 }
             }
         }

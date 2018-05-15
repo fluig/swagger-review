@@ -1,7 +1,5 @@
 package com.api.factory;
 
-import com.api.factory.SwaggerRuleType;
-
 public enum EnumRule {
 
     RULE0001("O documento swagger %s não está configurado para suportar http e https",
@@ -28,7 +26,11 @@ public enum EnumRule {
             "As entidades de retorno não podem conter os sufixos DTO ou VO.",
             SwaggerRuleType.ERROR),
 
-    RULE0008("O path %s usa o método %s e portanto, não deve ser utilizado corpo na mensagem",
+    RULE0007("O path %s retorna um valor primitivo ao invés de uma JSON válido.",
+            "As entidades de retorno das APIs deve ser um JSON válido e não um valor primitivo.",
+            SwaggerRuleType.ERROR),
+
+    RULE0008("O path %s usa o método %s e, portanto, não deve ser utilizado corpo na mensagem.",
             "Métodos DELETE, GET, HEAD e OPTIONS não deve ser utilizado corpo na mensagem e sim utilizar query string.",
             SwaggerRuleType.ERROR),
 
@@ -58,7 +60,29 @@ public enum EnumRule {
 
     RULE0015("O path %s possui uma tag que possui Service no nome.",
             "Tags não devem conter Service no nome.",
-            SwaggerRuleType.WARNING);
+            SwaggerRuleType.WARNING),
+
+    RULE0016("O path %s possui query params que não obedecem a prática camelCase.",
+            "Query params devem estar no padrão camelCase.",
+            SwaggerRuleType.ERROR),
+
+    RULE0017("O path %s retorna uma collection, mas seu nome está no singular.",
+            "APIs que retornam collections devem estar no plural.",
+            SwaggerRuleType.WARNING),
+
+    RULE0018("O path %s não possui tags.",
+            "Cada operação deve ter pelo menos uma tag.",
+            SwaggerRuleType.ERROR),
+
+    RULE0019("O path %s não possui um formato de retorno adequado.",
+            "Todas as operações devem conter um formato de retorno adequado.",
+            SwaggerRuleType.ERROR),
+
+    RULE0020("O path %s não retorna o tipo ErrorResponse para código de erro %s.",
+            "Todos os código de erros devem utilizar o tipo ErrorResponse.",
+            SwaggerRuleType.ERROR)
+
+    ;
 
     private final String mMessage;
 

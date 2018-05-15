@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public final class EnsureTagNameRule extends SwaggerRule {
+public final class EnsureAtLeastOneTagPerOperationRule extends SwaggerRule {
 
-    public EnsureTagNameRule() {
-        super(EnumRule.RULE0015);
+    public EnsureAtLeastOneTagPerOperationRule() {
+        super(EnumRule.RULE0018);
     }
 
     @Override
@@ -26,19 +26,12 @@ public final class EnsureTagNameRule extends SwaggerRule {
 
             for (Map.Entry<HttpMethod, Operation> operationEntry : pathEntry.getValue().getOperationMap().entrySet()) {
 
-                if (operationEntry.getValue().getTags() == null) {
-                    continue;
-                }
-
-                for (String tag : operationEntry.getValue().getTags()) {
-
-                    if (tag.toUpperCase().contains("SERVICE")) {
-                        failures.add(new SwaggerRuleFailure(
-                                getName(),
-                                String.format(getMessage(), operationEntry.getKey().name() + " " + pathEntry.getKey()),
-                                getSwaggerRuleType()
-                        ));
-                    }
+                if (operationEntry.getValue().getTags() == null || operationEntry.getValue().getTags().size() < 1) {
+                    failures.add(new SwaggerRuleFailure(
+                            getName(),
+                            String.format(getMessage(), operationEntry.getKey().name() + " " + pathEntry.getKey()),
+                            getSwaggerRuleType()
+                    ));
                 }
             }
         }
