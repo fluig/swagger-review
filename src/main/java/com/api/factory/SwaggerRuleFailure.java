@@ -11,4 +11,7 @@ public class SwaggerRuleFailure {
         this.type = type;
     }
 
+    public SwaggerRuleType getType() {
+        return type;
+    }
 }

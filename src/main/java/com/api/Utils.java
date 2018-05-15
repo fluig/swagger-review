@@ -1,6 +1,7 @@
 package com.api;
 
 import com.api.factory.FactoryRules;
+import com.api.factory.SwaggerRuleType;
 import com.api.rules.SwaggerRule;
 import com.api.factory.SwaggerRuleFailure;
 import com.google.gson.Gson;
@@ -22,6 +23,10 @@ public class Utils {
     public static String SUFIX_FILE_NAME = "ReportValidation";
 
     public static void executeValidation(Path pathBaseDir, ArrayList<String> pathsToIgnore, ArrayList<String> ignoreRules) {
+
+        ArrayList<SwaggerRuleFailure> swaggerRuleFailures = new ArrayList<>();
+
+        String pathWithErrors = "";
 
         try {
 
@@ -48,8 +53,6 @@ public class Utils {
 
                 if (isValid) {
 
-                    ArrayList<SwaggerRuleFailure> swaggerRuleFailures = new ArrayList<>();
-
                     SwaggerParser swaggerParser = new SwaggerParser();
 
                     Swagger swagger = swaggerParser.read(path.toString());
@@ -70,7 +73,7 @@ public class Utils {
 
                         String json = gson.toJson(swaggerRuleFailures);
 
-                        Utils.saveFile(path.toString().substring(0, path.toString().lastIndexOf(File.separator)), swagger.getInfo().getTitle(), json);
+                        pathWithErrors = Utils.saveFile(path.toString().substring(0, path.toString().lastIndexOf(File.separator)), swagger.getInfo().getTitle(), json);
 
                     }
 
@@ -82,13 +85,25 @@ public class Utils {
             e.printStackTrace();
         }
 
+        if (swaggerRuleFailures.size() > 0){
+
+            for (SwaggerRuleFailure swaggerRuleFailure : swaggerRuleFailures){
+
+                if (swaggerRuleFailure.getType().equals(SwaggerRuleType.ERROR)){
+                    throw new RuntimeException("Validation Report with Errors in " + pathWithErrors);
+                }
+
+            }
+
+        }
+
     }
 
-    public static void saveFile(String pathTosave, String fileName, String json) {
+    public static String saveFile(String pathTosave, String fileName, String json) {
+
+        String nameFile = pathTosave + File.separator + fileName + SUFIX_FILE_NAME + ".json";
 
         try {
-
-            String nameFile = pathTosave + File.separator + fileName + SUFIX_FILE_NAME + ".json";
 
             File file = new File(nameFile);
 
@@ -107,6 +122,8 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return nameFile;
 
     }
 }
